@@ -1,4 +1,5 @@
 ﻿using CompanyFleetManager;
+using CompanyFleetManager.Models.Entities;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,10 @@ namespace CompanyFleetManagerWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool _rentalsLoaded = false;
+        private bool _employeesLoaded = false;
+        private bool _vehiclesLoaded = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,12 +34,59 @@ namespace CompanyFleetManagerWPF
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            switch (GetSelectedTab())
+            {
+                case "Rentals":
+                    DeleteRental(GetSelectedRental());
+                    _rentalsLoaded = false;
+                    LoadRentals();
+                    break;
+                case "Employees":
+                    DeleteEmployee(GetSelectedEmployee());
+                    _employeesLoaded = false;
+                    LoadEmployees();
+                    break;
+                case "Vehicles":
+                    DeleteVehicle(GetSelectedVehicle());
+                    _vehiclesLoaded = false;
+                    LoadVehicles();
+                    break;
+            }
         }
 
         private void ButtonModify_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void DeleteVehicle(Vehicle v)
+        {
+            using (var context = new FleetDatabaseContext())
+            {
+                var vehicleToRemove = context.Vehicles.Find(v.VehicleId);
+                context.Vehicles.Remove(vehicleToRemove);
+                context.SaveChanges();
+            }
+        }
+
+        private void DeleteEmployee(Employee e)
+        {
+            using (var context = new FleetDatabaseContext())
+            {
+                var employeeToRemove = context.Employees.Find(e.EmployeeId);
+                context.Employees.Remove(employeeToRemove);
+                context.SaveChanges();
+            }
+        }
+
+        private void DeleteRental(Rental r)
+        {
+            using (var context = new FleetDatabaseContext())
+            {
+                var rentalToRemove = context.Rentals.Find(r.RentalId);
+                context.Rentals.Remove(rentalToRemove);
+                context.SaveChanges();
+            }
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -49,20 +101,29 @@ namespace CompanyFleetManagerWPF
             switch (selectedTab)
             {
                 case "Rentals":
-                    LoadRentals();
+                    if (!_rentalsLoaded)
+                        LoadRentals();
                     break;
 
                 case "Employees":
-                    LoadEmployees();
+                    if (!_employeesLoaded)
+                        LoadEmployees();
                     break;
 
                 case "Vehicles":
-                    LoadVehicles();
+                    if (!_vehiclesLoaded)
+                        LoadVehicles();
                     break;
             }
         }
 
         private string GetSelectedTab() => (TabControl.SelectedItem as TabItem).Header.ToString();
+
+        private Vehicle GetSelectedVehicle() => ListViewVehicles.SelectedItem as Vehicle;
+
+        private Employee GetSelectedEmployee() => ListViewEmployees.SelectedItem as Employee;
+
+        private Rental GetSelectedRental() => ListViewRentals.SelectedItem as Rental;
 
         private void LoadEmployees()
         {
@@ -70,6 +131,7 @@ namespace CompanyFleetManagerWPF
             {
                 var employees = context.Employees.ToList();
                 ListViewEmployees.ItemsSource = employees;
+                _employeesLoaded = true;
             }
         }
 
@@ -79,6 +141,7 @@ namespace CompanyFleetManagerWPF
             {
                 var vehicles = context.Vehicles.ToList();
                 ListViewVehicles.ItemsSource = vehicles;
+                _vehiclesLoaded = true;
             }
         }
 
@@ -88,6 +151,7 @@ namespace CompanyFleetManagerWPF
             {
                 var rentals = context.Rentals.ToList();
                 ListViewRentals.ItemsSource = rentals;
+                _rentalsLoaded = true;
             }
         }
     }

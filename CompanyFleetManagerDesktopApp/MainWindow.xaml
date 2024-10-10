@@ -21,7 +21,7 @@
         <TabControl Name="TabControl" Margin="0,30,0,0">
             <TabItem Header="Rentals">
                 <Grid>
-                    <ListView Name="ListViewRentals">
+                    <ListView Name="ListViewRentals" SelectionMode="Single">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="RentedVehicleId" DisplayMemberBinding="{Binding RentedVehicleId}" Width="200"/>
