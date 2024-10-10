@@ -1,5 +1,6 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
+using CompanyFleetManagerDesktopApp;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -91,7 +92,63 @@ namespace CompanyFleetManagerWPF
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            switch (GetSelectedTab())
+            {
+                case "Rentals":
+                    AddRental();
+                    _rentalsLoaded = false;
+                    LoadRentals();
+                    break;
+                case "Employees":
+                    AddEmployee();
+                    _employeesLoaded = false;
+                    LoadEmployees();
+                    break;
+                case "Vehicles":
+                    AddVehicle();
+                    _vehiclesLoaded = false;
+                    LoadVehicles();
+                    break;
+            }
+        }
+
+        private void AddVehicle()
+        {
+            var window = new AddModifyVehicleWindow();
+            if(window.ShowDialog() == true)
+            {
+                Vehicle vehicle = window.VehicleData;
+
+                var context = new FleetDatabaseContext();
+                context.Vehicles.Add(vehicle);
+                context.SaveChanges();
+            }
+        }
+
+        private void AddEmployee()
+        {
+            var window = new AddModifyEmployeeWindow();
+            if (window.ShowDialog() == true)
+            {
+                Employee employee = window.EmployeeData;
+
+                var context = new FleetDatabaseContext();
+                context.Employees.Add(employee);
+                context.SaveChanges();
+            }
+        }
+
+        private void AddRental()
+        {
+            var window = new AddModifyRentalWindow();
+            if (window.ShowDialog() == true)
+            {
+                Rental rental = window.RentalData;
+
+                var context = new FleetDatabaseContext();
+                context.Rentals.Add(rental);
+                context.SaveChanges();
+            }
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
