@@ -1,0 +1,79 @@
+﻿<Window x:Class="CompanyFleetManagerWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CompanyFleetManagerWPF"
+        mc:Ignorable="d"
+        Title="CompanyFleetManager" Height="850" Width="1800">
+    <Grid>
+        <ToolBarTray>
+            <ToolBar>
+                <Button Name="ButtonAdd" Content="Add"/>
+                <Separator/>
+                <Button Name="ButtonModify"  Content="Modify"/>
+                <Separator/>
+                <Button Name="ButtonDelete" Content="Delete"/>
+                <Separator/>
+            </ToolBar>
+        </ToolBarTray>
+        
+        <TabControl Name="TabControl" Margin="0,30,0,0">
+            <TabItem Header="Rentals">
+                <Grid>
+                    <ListView Name="ListViewRentals">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="RentedVehicleId" DisplayMemberBinding="{Binding RentedVehicleId}" Width="200"/>
+                                <GridViewColumn Header="RentingEmployeeId" DisplayMemberBinding="{Binding RentingEmployeeId}" Width="200" />
+                                <GridViewColumn Header="RentalDate" DisplayMemberBinding="{Binding RentalDate}" Width="200" />
+                                <GridViewColumn Header="PlannedReturningDate" DisplayMemberBinding="{Binding PlannedReturningDate}" Width="200" />
+                                <GridViewColumn Header="FactualReturningDate" DisplayMemberBinding="{Binding FactualReturningDate}" Width="200" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Employees">
+                <Grid>
+                    <ListView Name="ListViewEmployees">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Occupation" DisplayMemberBinding="{Binding Occupation}" Width="200"/>
+                                <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" Width="200"/>
+                                <GridViewColumn Header="Forename" DisplayMemberBinding="{Binding Forename}" Width="200"/>
+                                <GridViewColumn Header="Middlename" DisplayMemberBinding="{Binding Middlename}" Width="200"/>
+                                <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="200"/>
+                                <GridViewColumn Header="NationalIdentityNumber" DisplayMemberBinding="{Binding NationalIdentityNumber}" Width="200"/>
+                                <GridViewColumn Header="WorkPhoneNumber" DisplayMemberBinding="{Binding WorkPhoneNumber}" Width="200"/>
+                                <GridViewColumn Header="PrivatePhoneNumber" DisplayMemberBinding="{Binding PrivatePhoneNumber}" Width="200"/>
+                                <GridViewColumn Header="DrivingLicenseCategories" DisplayMemberBinding="{Binding DrivingLicenseCategories}" Width="200"/>
+                                <GridViewColumn Header="DrivingLicenseValidity" DisplayMemberBinding="{Binding DrivingLicenseValidity}" Width="200"/>
+                                <GridViewColumn Header="HiredUntil" DisplayMemberBinding="{Binding HiredUntil}" Width="200"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Vehicles">
+                <Grid>
+                    <ListView Name="ListViewVehicles">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Brand" DisplayMemberBinding="{Binding Brand}" Width="200"/>
+                                <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="200"/>
+                                <GridViewColumn Header="LicencePlateNumber" DisplayMemberBinding="{Binding LicencePlateNumber}" Width="200"/>
+                                <GridViewColumn Header="ProductionYear" DisplayMemberBinding="{Binding ProductionYear}" Width="200"/>
+                                <GridViewColumn Header="Mileage" DisplayMemberBinding="{Binding Mileage}" Width="200"/>
+                                <GridViewColumn Header="VehicleInspectionValidity" DisplayMemberBinding="{Binding VehicleInspectionValidity}" Width="200"/>
+                                <GridViewColumn Header="IsDamaged" DisplayMemberBinding="{Binding IsDamaged}" Width="200"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

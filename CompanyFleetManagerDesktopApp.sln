@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyFleetManagerDesktopApp", "CompanyFleetManagerDesktopApp\CompanyFleetManagerDesktopApp.csproj", "{1ADF666F-3241-42A7-BBAF-F796F8BB5B34}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyFleetManager", "..\CompanyFleetManager\CompanyFleetManager\CompanyFleetManager.csproj", "{B9BA07B2-187D-4329-A1A7-663ED9306405}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1ADF666F-3241-42A7-BBAF-F796F8BB5B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ADF666F-3241-42A7-BBAF-F796F8BB5B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ADF666F-3241-42A7-BBAF-F796F8BB5B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ADF666F-3241-42A7-BBAF-F796F8BB5B34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9BA07B2-187D-4329-A1A7-663ED9306405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9BA07B2-187D-4329-A1A7-663ED9306405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9BA07B2-187D-4329-A1A7-663ED9306405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9BA07B2-187D-4329-A1A7-663ED9306405}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D5B4D90-29DF-4054-A2DA-1EB3F9DF0EDE}
+	EndGlobalSection
+EndGlobal

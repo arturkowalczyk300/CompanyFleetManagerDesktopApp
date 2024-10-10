@@ -1,0 +1,7 @@
+CompanyFleetManagerDesktopApp/[Bb]in/
+CompanyFleetManagerDesktopApp/[Oo]bj/
+.vs/
+*.db
+*.db-shm
+*.db-wal
+README.md.backup
