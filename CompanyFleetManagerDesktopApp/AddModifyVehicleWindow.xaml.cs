@@ -22,9 +22,21 @@ namespace CompanyFleetManagerDesktopApp
     {
         public Vehicle VehicleData { get; private set; }
 
-        public AddModifyVehicleWindow()
+        public AddModifyVehicleWindow(Vehicle vehicle = null)
         {
             InitializeComponent();
+
+            if (vehicle != null)
+            {
+                VehicleData = vehicle;
+                TextBoxBrand.Text = vehicle.Brand;
+                TextBoxModel.Text = vehicle.Model;
+                TextBoxLicencePlateNumber.Text = vehicle.LicencePlateNumber;
+                TextBoxProductionYear.Text = vehicle.ProductionYear.ToString();
+                TextBoxMileage.Text = vehicle.Mileage.ToString();
+                DatePickerVehicleInspectionValidity.SelectedDate = vehicle.VehicleInspectionValidity.ToDateTime(new TimeOnly(0, 0));
+                CheckBoxIsDamaged.IsChecked = vehicle.IsDamaged;
+            }
         }
 
         private void ButtonAddVehicle_Click(object sender, RoutedEventArgs e)

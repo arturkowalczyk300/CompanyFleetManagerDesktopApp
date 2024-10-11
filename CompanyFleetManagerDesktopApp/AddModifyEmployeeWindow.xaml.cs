@@ -21,9 +21,26 @@ namespace CompanyFleetManagerDesktopApp
     public partial class AddModifyEmployeeWindow : Window
     {
         public Employee EmployeeData { get; private set; }
-        public AddModifyEmployeeWindow()
+
+        public AddModifyEmployeeWindow(Employee employee = null)
         {
             InitializeComponent();
+
+            if (employee != null)
+            {
+                EmployeeData = employee;
+                TextBoxOccupation.Text = employee.Occupation;
+                TextBoxAddress.Text = employee.Address;
+                TextBoxForename.Text = employee.Forename;
+                TextBoxMiddlename.Text = employee.Middlename;
+                TextBoxSurname.Text = employee.Surname;
+                TextBoxNationalIdentityNumber.Text = employee.NationalIdentityNumber.ToString();
+                TextBoxWorkPhoneNumber.Text = employee.WorkPhoneNumber.ToString();
+                TextBoxPrivatePhoneNumber.Text = employee.PrivatePhoneNumber.ToString();
+                TextBoxDrivingLicenseCategories.Text = employee.DrivingLicenseCategories.ToString();
+                DatePickerDrivingLicenseValidity.SelectedDate = employee.DrivingLicenseValidity.ToDateTime(new TimeOnly(0,0));
+                DatePickerHiredUntil.SelectedDate = employee.HiredUntil.ToDateTime(new TimeOnly(0, 0));
+            }
         }
 
         private void ButtonAddEmployee_Click(object sender, RoutedEventArgs e)

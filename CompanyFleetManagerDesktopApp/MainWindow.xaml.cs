@@ -57,7 +57,63 @@ namespace CompanyFleetManagerWPF
 
         private void ButtonModify_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            switch (GetSelectedTab())
+            {
+                case "Rentals":
+                    ModifyRental(GetSelectedRental());
+                    _rentalsLoaded = false;
+                    LoadRentals();
+                    break;
+                case "Employees":
+                    ModifyEmployee(GetSelectedEmployee());
+                    _employeesLoaded = false;
+                    LoadEmployees();
+                    break;
+                case "Vehicles":
+                    ModifyVehicle(GetSelectedVehicle());
+                    _vehiclesLoaded = false;
+                    LoadVehicles();
+                    break;
+            }
+        }
+
+        private void ModifyVehicle(Vehicle vehicle)
+        {
+            var window = new AddModifyVehicleWindow(vehicle);
+            if (window.ShowDialog() == true)
+            {
+                Vehicle modifiedVehicle = window.VehicleData;
+
+                var context = new FleetDatabaseContext();
+                context.Vehicles.Update(modifiedVehicle);
+                context.SaveChanges();
+            }
+        }
+
+        private void ModifyEmployee(Employee employee)
+        {
+            var window = new AddModifyEmployeeWindow(employee);
+            if (window.ShowDialog() == true)
+            {
+                Employee modifiedEmployee = window.EmployeeData;
+
+                var context = new FleetDatabaseContext();
+                context.Employees.Update(modifiedEmployee);
+                context.SaveChanges();
+            }
+        }
+
+        private void ModifyRental(Rental rental)
+        {
+            var window = new AddModifyRentalWindow(rental);
+            if (window.ShowDialog() == true)
+            {
+                Rental modifiedRental = window.RentalData;
+
+                var context = new FleetDatabaseContext();
+                context.Rentals.Update(modifiedRental);
+                context.SaveChanges();
+            }
         }
 
         private void DeleteVehicle(Vehicle v)

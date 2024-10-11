@@ -22,9 +22,16 @@ namespace CompanyFleetManagerDesktopApp
     {
         public Rental RentalData { get; set; }
 
-        public AddModifyRentalWindow()
+        public AddModifyRentalWindow(Rental rental = null)
         {
             InitializeComponent();
+
+            RentalData = rental;
+            TextBoxRentedVehicleId.Text = rental.RentedVehicleId.ToString();
+            TextBoxRentingEmployeeId.Text = rental.RentingEmployeeId.ToString();
+            DatePickerRentalDate.SelectedDate = rental.RentalDate.ToDateTime(new TimeOnly(0, 0));
+            DatePickerPlannedReturningDate.SelectedDate = rental.PlannedReturningDate;
+            DatePickerFactualReturningDate.SelectedDate = rental.FactualReturningDate;
         }
 
         private void AddRental_Click(object sender, RoutedEventArgs e)
