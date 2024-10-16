@@ -34,7 +34,7 @@ namespace CompanyFleetManagerDesktopApp
             DatePickerFactualReturningDate.SelectedDate = rental.FactualReturningDate;
         }
 
-        private void AddRental_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveRental_Click(object sender, RoutedEventArgs e)
         {
             var rentedVehicleId = int.Parse(TextBoxRentedVehicleId.Text);
             var rentingEmployeeId = int.Parse(TextBoxRentingEmployeeId.Text);
@@ -42,13 +42,12 @@ namespace CompanyFleetManagerDesktopApp
             var plannedReturningDate = DatePickerPlannedReturningDate.SelectedDate;
             var factualReturningDate = DatePickerFactualReturningDate.SelectedDate;
 
-            RentalData = new Rental(
-                0,
-                rentedVehicleId,
-                rentingEmployeeId,
-                DateOnly.FromDateTime(rentalDate.Value),
-                plannedReturningDate.Value,
-                factualReturningDate.Value);
+            RentalData.RentalId = 0;
+            RentalData.RentedVehicleId = rentedVehicleId;
+            RentalData.RentingEmployeeId = rentingEmployeeId;
+            RentalData.RentalDate = DateOnly.FromDateTime(rentalDate.Value);
+            RentalData.PlannedReturningDate = plannedReturningDate.Value;
+            RentalData.FactualReturningDate = factualReturningDate.Value;
 
             this.DialogResult = true; //success
             this.Close();

@@ -39,18 +39,16 @@ namespace CompanyFleetManagerDesktopApp
             }
         }
 
-        private void ButtonAddVehicle_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveVehicle_Click(object sender, RoutedEventArgs e)
         {
-            VehicleData = new Vehicle
-            {
-                Brand = TextBoxBrand.Text,
-                Model = TextBoxModel.Text,
-                LicencePlateNumber = TextBoxLicencePlateNumber.Text,
-                ProductionYear = int.Parse(TextBoxProductionYear.Text),
-                Mileage = int.Parse(TextBoxMileage.Text),
-                VehicleInspectionValidity = DateOnly.FromDateTime(DatePickerVehicleInspectionValidity.SelectedDate.Value),
-                IsDamaged = CheckBoxIsDamaged.IsChecked.Value
-            };
+
+            VehicleData.Brand = TextBoxBrand.Text;
+            VehicleData.Model = TextBoxModel.Text;
+            VehicleData.LicencePlateNumber = TextBoxLicencePlateNumber.Text;
+            VehicleData.ProductionYear = int.Parse(TextBoxProductionYear.Text);
+            VehicleData.Mileage = int.Parse(TextBoxMileage.Text);
+            VehicleData.VehicleInspectionValidity = DateOnly.FromDateTime(DatePickerVehicleInspectionValidity.SelectedDate.Value);
+            VehicleData.IsDamaged = CheckBoxIsDamaged.IsChecked.Value;
 
             this.DialogResult = true;
             this.Close();

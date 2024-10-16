@@ -38,27 +38,24 @@ namespace CompanyFleetManagerDesktopApp
                 TextBoxWorkPhoneNumber.Text = employee.WorkPhoneNumber.ToString();
                 TextBoxPrivatePhoneNumber.Text = employee.PrivatePhoneNumber.ToString();
                 TextBoxDrivingLicenseCategories.Text = employee.DrivingLicenseCategories.ToString();
-                DatePickerDrivingLicenseValidity.SelectedDate = employee.DrivingLicenseValidity.ToDateTime(new TimeOnly(0,0));
+                DatePickerDrivingLicenseValidity.SelectedDate = employee.DrivingLicenseValidity.ToDateTime(new TimeOnly(0, 0));
                 DatePickerHiredUntil.SelectedDate = employee.HiredUntil.ToDateTime(new TimeOnly(0, 0));
             }
         }
 
-        private void ButtonAddEmployee_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveEmployee_Click(object sender, RoutedEventArgs e)
         {
-            EmployeeData = new Employee
-            {
-                Occupation = TextBoxOccupation.Text,
-                Address = TextBoxAddress.Text,
-                Forename = TextBoxForename.Text,
-                Middlename = TextBoxMiddlename.Text,
-                Surname = TextBoxSurname.Text,
-                NationalIdentityNumber = long.Parse(TextBoxNationalIdentityNumber.Text),
-                WorkPhoneNumber = CompanyFleetManager.Models.PhoneNumber.ParseString(TextBoxWorkPhoneNumber.Text),
-                PrivatePhoneNumber = CompanyFleetManager.Models.PhoneNumber.ParseString(TextBoxPrivatePhoneNumber.Text),
-                DrivingLicenseCategories = TextBoxDrivingLicenseCategories.Text.ToCharArray().Select(v => v.ToString()).ToList(),
-                DrivingLicenseValidity = DateOnly.FromDateTime(DatePickerDrivingLicenseValidity.SelectedDate.Value),
-                HiredUntil = DateOnly.FromDateTime(DatePickerHiredUntil.SelectedDate.Value)
-            };
+            EmployeeData.Occupation = TextBoxOccupation.Text;
+            EmployeeData.Address = TextBoxAddress.Text;
+            EmployeeData.Forename = TextBoxForename.Text;
+            EmployeeData.Middlename = TextBoxMiddlename.Text;
+            EmployeeData.Surname = TextBoxSurname.Text;
+            EmployeeData.NationalIdentityNumber = long.Parse(TextBoxNationalIdentityNumber.Text);
+            EmployeeData.WorkPhoneNumber = CompanyFleetManager.Models.PhoneNumber.ParseString(TextBoxWorkPhoneNumber.Text);
+            EmployeeData.PrivatePhoneNumber = CompanyFleetManager.Models.PhoneNumber.ParseString(TextBoxPrivatePhoneNumber.Text);
+            EmployeeData.DrivingLicenseCategories = TextBoxDrivingLicenseCategories.Text.ToCharArray().Select(v => v.ToString()).ToList();
+            EmployeeData.DrivingLicenseValidity = DateOnly.FromDateTime(DatePickerDrivingLicenseValidity.SelectedDate.Value);
+            EmployeeData.HiredUntil = DateOnly.FromDateTime(DatePickerHiredUntil.SelectedDate.Value);
 
             this.DialogResult = true;
             this.Close();
