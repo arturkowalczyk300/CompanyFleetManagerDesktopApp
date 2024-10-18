@@ -14,6 +14,8 @@ The core project is contained in my another repository: https://github.com/artur
 
 ##### All names, addresses, and data used in this project are fictional and for demonstration purposes only. Any resemblance to real persons or properties is purely coincidental and unintended.
 
-![Screenshot 1 - Vehicles](/res/Vehicles.png?raw=true "Vehicles")  
+![Screenshot 1 - Rentals](/res/Rentals.png?raw=true "Rentals")  
 
-![Screenshot 2 - Modify](/res/Modify.png?raw=true "Modify")
+![Screenshot 2 - Vehicles](/res/Vehicles.png?raw=true "Vehicles")  
+
+![Screenshot 3 - Modify](/res/Modify.png?raw=true "Modify")
