@@ -79,40 +79,47 @@ namespace CompanyFleetManagerWPF
 
         private void ModifyVehicle(Vehicle vehicle)
         {
-            var window = new AddModifyVehicleWindow(vehicle);
-            if (window.ShowDialog() == true)
+            using (var context = new FleetDatabaseContext())
             {
-                Vehicle modifiedVehicle = window.VehicleData;
+                var window = new AddModifyVehicleWindow(vehicle);
+                if (window.ShowDialog() == true)
+                {
+                    Vehicle modifiedVehicle = window.VehicleData;
 
-                var context = new FleetDatabaseContext();
-                context.Vehicles.Update(modifiedVehicle);
-                context.SaveChanges();
+                    context.Vehicles.Update(modifiedVehicle);
+                    context.SaveChanges();
+                }
             }
         }
 
         private void ModifyEmployee(Employee employee)
         {
-            var window = new AddModifyEmployeeWindow(employee);
-            if (window.ShowDialog() == true)
+            using (var context = new FleetDatabaseContext())
             {
-                Employee modifiedEmployee = window.EmployeeData;
+                var window = new AddModifyEmployeeWindow(employee);
+                if (window.ShowDialog() == true)
+                {
+                    Employee modifiedEmployee = window.EmployeeData;
 
-                var context = new FleetDatabaseContext();
-                context.Employees.Update(modifiedEmployee);
-                context.SaveChanges();
+                    context.Employees.Update(modifiedEmployee);
+                    context.SaveChanges();
+                }
             }
         }
 
         private void ModifyRental(Rental rental)
         {
-            var window = new AddModifyRentalWindow(rental);
-            if (window.ShowDialog() == true)
+            using (var context = new FleetDatabaseContext())
             {
-                Rental modifiedRental = window.RentalData;
+                var window = new AddModifyRentalWindow(context.Vehicles.ToList(), context.Employees.ToList(), rental);
+                if (window.ShowDialog() == true)
+                {
+                    Rental modifiedRental = window.RentalData;
 
-                var context = new FleetDatabaseContext();
-                context.Rentals.Update(modifiedRental);
-                context.SaveChanges();
+
+                    context.Rentals.Update(modifiedRental);
+                    context.SaveChanges();
+                }
             }
         }
 
@@ -170,40 +177,46 @@ namespace CompanyFleetManagerWPF
 
         private void AddVehicle()
         {
-            var window = new AddModifyVehicleWindow();
-            if(window.ShowDialog() == true)
+            using (var context = new FleetDatabaseContext())
             {
-                Vehicle vehicle = window.VehicleData;
+                var window = new AddModifyVehicleWindow();
+                if (window.ShowDialog() == true)
+                {
+                    Vehicle vehicle = window.VehicleData;
 
-                var context = new FleetDatabaseContext();
-                context.Vehicles.Add(vehicle);
-                context.SaveChanges();
+                    context.Vehicles.Add(vehicle);
+                    context.SaveChanges();
+                }
             }
         }
 
         private void AddEmployee()
         {
-            var window = new AddModifyEmployeeWindow();
-            if (window.ShowDialog() == true)
+            using (var context = new FleetDatabaseContext())
             {
-                Employee employee = window.EmployeeData;
+                var window = new AddModifyEmployeeWindow();
+                if (window.ShowDialog() == true)
+                {
+                    Employee employee = window.EmployeeData;
 
-                var context = new FleetDatabaseContext();
-                context.Employees.Add(employee);
-                context.SaveChanges();
+                    context.Employees.Add(employee);
+                    context.SaveChanges();
+                }
             }
         }
 
         private void AddRental()
         {
-            var window = new AddModifyRentalWindow();
-            if (window.ShowDialog() == true)
+            using (var context = new FleetDatabaseContext())
             {
-                Rental rental = window.RentalData;
+                var window = new AddModifyRentalWindow(context.Vehicles.ToList(), context.Employees.ToList(), null);
+                if (window.ShowDialog() == true)
+                {
+                    Rental rental = window.RentalData;
 
-                var context = new FleetDatabaseContext();
-                context.Rentals.Add(rental);
-                context.SaveChanges();
+                    context.Rentals.Add(rental);
+                    context.SaveChanges();
+                }
             }
         }
 

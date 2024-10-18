@@ -9,10 +9,39 @@
     <Grid>
         <StackPanel Margin="10">
             <TextBlock Text="Rented Vehicle ID:" />
-            <TextBox x:Name="TextBoxRentedVehicleId" Width="200" Margin="0,0,0,10" />
+            <ComboBox x:Name="ComboBoxRentedVehicle" Width="200" Margin="0,0,0,10">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}, {2}">
+                                    <Binding Path="Brand"/>
+                                    <Binding Path="Model"/>
+                                    <Binding Path="LicencePlateNumber"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <TextBlock Text="Renting Employee ID:" />
-            <TextBox x:Name="TextBoxRentingEmployeeId" Width="200" Margin="0,0,0,10" />
+            <ComboBox x:Name="ComboBoxRentingEmployeeId" Width="200" Margin="0,0,0,10" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1} {2}, {3}">
+                                    <Binding Path="Forename"/>
+                                    <Binding Path="Middlename"/>
+                                    <Binding Path="Surname"/>
+                                    <Binding Path="Occupation"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <TextBlock Text="Rental Date:" />
             <DatePicker x:Name="DatePickerRentalDate" Width="200" Margin="0,0,0,10" />
