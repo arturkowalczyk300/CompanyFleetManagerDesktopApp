@@ -38,7 +38,7 @@ namespace CompanyFleetManagerWPF
             switch (GetSelectedTab())
             {
                 case "Rentals":
-                    DeleteRental(GetSelectedRental());
+                    DeleteRental(GetSelectedRental().Rental);
                     _rentalsLoaded = false;
                     LoadRentals();
                     break;
@@ -60,7 +60,7 @@ namespace CompanyFleetManagerWPF
             switch (GetSelectedTab())
             {
                 case "Rentals":
-                    ModifyRental(GetSelectedRental());
+                    ModifyRental(GetSelectedRental().Rental);
                     _rentalsLoaded = false;
                     LoadRentals();
                     break;
@@ -249,7 +249,7 @@ namespace CompanyFleetManagerWPF
 
         private Employee GetSelectedEmployee() => ListViewEmployees.SelectedItem as Employee;
 
-        private Rental GetSelectedRental() => ListViewRentals.SelectedItem as Rental;
+        private RentalInfo GetSelectedRental() => ListViewRentals.SelectedItem as RentalInfo;
 
         private void LoadEmployees()
         {
@@ -276,7 +276,16 @@ namespace CompanyFleetManagerWPF
             using (var context = new FleetDatabaseContext())
             {
                 var rentals = context.Rentals.ToList();
-                ListViewRentals.ItemsSource = rentals;
+                var rentalInfo = new List<RentalInfo>();
+
+                foreach(var rental in rentals)
+                {
+                    var employee= context.Employees.ToList().Find(x => x.EmployeeId == rental.RentingEmployeeId);
+                    var vehicle = context.Vehicles.ToList().Find(x => x.VehicleId == rental.RentedVehicleId);
+                    rentalInfo.Add(new RentalInfo(rental, employee, vehicle));
+                }
+
+                ListViewRentals.ItemsSource = rentalInfo;
                 _rentalsLoaded = true;
             }
         }

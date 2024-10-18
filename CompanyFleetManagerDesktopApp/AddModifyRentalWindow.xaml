@@ -8,7 +8,7 @@
         Title="AddModifyRentalWindow" Height="450" Width="800">
     <Grid>
         <StackPanel Margin="10">
-            <TextBlock Text="Rented Vehicle ID:" />
+            <TextBlock Text="Rented vehicle:" />
             <ComboBox x:Name="ComboBoxRentedVehicle" Width="200" Margin="0,0,0,10">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -25,7 +25,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBlock Text="Renting Employee ID:" />
+            <TextBlock Text="Renting employee:" />
             <ComboBox x:Name="ComboBoxRentingEmployeeId" Width="200" Margin="0,0,0,10" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>

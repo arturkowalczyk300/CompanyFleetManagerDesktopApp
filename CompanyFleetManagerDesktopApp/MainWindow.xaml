@@ -24,11 +24,11 @@
                     <ListView Name="ListViewRentals" SelectionMode="Single">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="RentedVehicleId" DisplayMemberBinding="{Binding RentedVehicleId}" Width="200"/>
-                                <GridViewColumn Header="RentingEmployeeId" DisplayMemberBinding="{Binding RentingEmployeeId}" Width="200" />
-                                <GridViewColumn Header="RentalDate" DisplayMemberBinding="{Binding RentalDate}" Width="200" />
-                                <GridViewColumn Header="PlannedReturningDate" DisplayMemberBinding="{Binding PlannedReturningDate}" Width="200" />
-                                <GridViewColumn Header="FactualReturningDate" DisplayMemberBinding="{Binding FactualReturningDate}" Width="200" />
+                                <GridViewColumn Header="Rented vehicle" DisplayMemberBinding="{Binding VehicleShortenedInfo}" Width="200"/>
+                                <GridViewColumn Header="Renting employee" DisplayMemberBinding="{Binding EmployeeShortenedInfo}" Width="200" />
+                                <GridViewColumn Header="RentalDate" DisplayMemberBinding="{Binding Rental.RentalDate}" Width="200" />
+                                <GridViewColumn Header="PlannedReturningDate" DisplayMemberBinding="{Binding Rental.PlannedReturningDate}" Width="200" />
+                                <GridViewColumn Header="FactualReturningDate" DisplayMemberBinding="{Binding Rental.FactualReturningDate}" Width="200" />
                             </GridView>
                         </ListView.View>
                     </ListView>
