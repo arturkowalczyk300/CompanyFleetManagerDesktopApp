@@ -1,6 +1,6 @@
 ﻿using CompanyFleetManager.Models.Entities;
 
-namespace CompanyFleetManagerWPF
+namespace CompanyFleetManagerDesktopApp
 {
     public class RentalInfo
     {

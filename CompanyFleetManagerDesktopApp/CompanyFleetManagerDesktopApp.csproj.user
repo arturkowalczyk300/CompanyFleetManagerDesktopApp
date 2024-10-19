@@ -7,27 +7,45 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="AddModifyEmployeeWindow.xaml.cs">
+    <Compile Update="Views\AddModifyEmployeeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="AddModifyRentalWindow.xaml.cs">
+    <Compile Update="Views\AddModifyRentalWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="AddModifyVehicleWindow.xaml.cs">
+    <Compile Update="Views\AddModifyVehicleWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EmployeesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RentalsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\VehiclesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="AddModifyEmployeeWindow.xaml">
+    <Page Update="Views\AddModifyEmployeeWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="AddModifyRentalWindow.xaml">
+    <Page Update="Views\AddModifyRentalWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="AddModifyVehicleWindow.xaml">
+    <Page Update="Views\AddModifyVehicleWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EmployeesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RentalsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\VehiclesView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

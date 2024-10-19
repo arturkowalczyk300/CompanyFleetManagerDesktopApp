@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace CompanyFleetManagerWPF
+namespace CompanyFleetManagerDesktopApp
 {
     /// <summary>
     /// Interaction logic for App.xaml
