@@ -17,16 +17,15 @@ using System.Windows.Shapes;
 
 namespace CompanyFleetManagerDesktopApp.Views
 {
-    /// <summary>
-    /// Interaction logic for RentalsView.xaml
-    /// </summary>
     public partial class RentalsView : UserControl
     {
         private bool _rentalsLoaded = false;
+        private FleetDatabaseContext context;
 
         public RentalsView()
         {
             InitializeComponent();
+            context = new FleetDatabaseContext();
         }
 
         private RentalInfo GetSelectedRental() => ListViewRentals.SelectedItem as RentalInfo;
@@ -36,35 +35,30 @@ namespace CompanyFleetManagerDesktopApp.Views
             if (_rentalsLoaded)
                 return;
 
-            using (var context = new FleetDatabaseContext())
+            var rentals = context.Rentals.ToList();
+            var rentalInfo = new List<RentalInfo>();
+
+            foreach (var rental in rentals)
             {
-                var rentals = context.Rentals.ToList();
-                var rentalInfo = new List<RentalInfo>();
-
-                foreach (var rental in rentals)
-                {
-                    var employee = context.Employees.ToList().Find(x => x.EmployeeId == rental.RentingEmployeeId);
-                    var vehicle = context.Vehicles.ToList().Find(x => x.VehicleId == rental.RentedVehicleId);
-                    rentalInfo.Add(new RentalInfo(rental, employee, vehicle));
-                }
-
-                ListViewRentals.ItemsSource = rentalInfo;
-                _rentalsLoaded = true;
+                var employee = context.Employees.ToList().Find(x => x.EmployeeId == rental.RentingEmployeeId);
+                var vehicle = context.Vehicles.ToList().Find(x => x.VehicleId == rental.RentedVehicleId);
+                rentalInfo.Add(new RentalInfo(rental, employee, vehicle));
             }
+
+            ListViewRentals.ItemsSource = rentalInfo;
+            _rentalsLoaded = true;
+
         }
         public void AddRental()
         {
             _rentalsLoaded = false;
-            using (var context = new FleetDatabaseContext())
+            var window = new AddModifyRentalWindow(context.Vehicles.ToList(), context.Employees.ToList(), null);
+            if (window.ShowDialog() == true)
             {
-                var window = new AddModifyRentalWindow(context.Vehicles.ToList(), context.Employees.ToList(), null);
-                if (window.ShowDialog() == true)
-                {
-                    Rental rental = window.RentalData;
+                Rental rental = window.RentalData;
 
-                    context.Rentals.Add(rental);
-                    context.SaveChanges();
-                }
+                context.Rentals.Add(rental);
+                context.SaveChanges();
             }
             LoadRentals();
         }
@@ -85,27 +79,21 @@ namespace CompanyFleetManagerDesktopApp.Views
 
         private void DeleteRental(Rental r)
         {
-            using (var context = new FleetDatabaseContext())
-            {
-                var rentalToRemove = context.Rentals.Find(r.RentalId);
-                context.Rentals.Remove(rentalToRemove);
-                context.SaveChanges();
-            }
+            var rentalToRemove = context.Rentals.Find(r.RentalId);
+            context.Rentals.Remove(rentalToRemove);
+            context.SaveChanges();
+
         }
 
         private void ModifyRental(Rental rental)
         {
-            using (var context = new FleetDatabaseContext())
+            var window = new AddModifyRentalWindow(context.Vehicles.ToList(), context.Employees.ToList(), rental);
+            if (window.ShowDialog() == true)
             {
-                var window = new AddModifyRentalWindow(context.Vehicles.ToList(), context.Employees.ToList(), rental);
-                if (window.ShowDialog() == true)
-                {
-                    Rental modifiedRental = window.RentalData;
+                Rental modifiedRental = window.RentalData;
 
-
-                    context.Rentals.Update(modifiedRental);
-                    context.SaveChanges();
-                }
+                context.Rentals.Update(modifiedRental);
+                context.SaveChanges();
             }
         }
     }

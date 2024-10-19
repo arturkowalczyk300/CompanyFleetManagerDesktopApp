@@ -31,11 +31,15 @@ namespace CompanyFleetManagerDesktopApp
             if (rentalToModify != null)
             {
                 RentalData = rentalToModify;
-                //ComboBoxRentedVehicle.SelectedItem = vehicles.Find(x => x.VehicleId == rentalToModify.RentedVehicleId);
-                //ComboBoxRentingEmployeeId.SelectedItem = employees.Find(x => x.EmployeeId == rentalToModify.RentingEmployeeId);
+                ComboBoxRentedVehicle.SelectedItem = vehicles.Find(x => x.VehicleId == rentalToModify.RentedVehicleId);
+                ComboBoxRentingEmployeeId.SelectedItem = employees.Find(x => x.EmployeeId == rentalToModify.RentingEmployeeId);
                 DatePickerRentalDate.SelectedDate = rentalToModify.RentalDate.ToDateTime(new TimeOnly(0, 0));
                 DatePickerPlannedReturningDate.SelectedDate = rentalToModify.PlannedReturningDate;
                 DatePickerFactualReturningDate.SelectedDate = rentalToModify.FactualReturningDate;
+            }
+            else //adding new item
+            {
+                DatePickerRentalDate.SelectedDate = DateTime.Now;
             }
         }
 
@@ -47,12 +51,20 @@ namespace CompanyFleetManagerDesktopApp
             var plannedReturningDate = DatePickerPlannedReturningDate.SelectedDate;
             var factualReturningDate = DatePickerFactualReturningDate.SelectedDate;
 
-            RentalData.RentalId = 0;
+            if (plannedReturningDate == null)
+            {
+                MessageBox.Show("Please select planned returning date!");
+                return;
+            }
+
+            //RentalData.RentalId = 0;
             RentalData.RentedVehicleId = rentedVehicleId;
             RentalData.RentingEmployeeId = rentingEmployeeId;
             RentalData.RentalDate = DateOnly.FromDateTime(rentalDate.Value);
             RentalData.PlannedReturningDate = plannedReturningDate.Value;
-            RentalData.FactualReturningDate = factualReturningDate.Value;
+
+            if (factualReturningDate != null)
+                RentalData.FactualReturningDate = factualReturningDate.Value;
 
             this.DialogResult = true; //success
             this.Close();

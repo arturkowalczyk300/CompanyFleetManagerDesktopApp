@@ -23,10 +23,12 @@ namespace CompanyFleetManagerDesktopApp.Views
     public partial class VehiclesView : UserControl
     {
         private bool _vehiclesLoaded = false;
+        private FleetDatabaseContext context;
 
         public VehiclesView()
         {
             InitializeComponent();
+            context = new FleetDatabaseContext();
         }
 
         private Vehicle GetSelectedVehicle() => ListViewVehicles.SelectedItem as Vehicle;
@@ -35,26 +37,20 @@ namespace CompanyFleetManagerDesktopApp.Views
             if (_vehiclesLoaded)
                 return;
 
-            using (var context = new FleetDatabaseContext())
-            {
-                var vehicles = context.Vehicles.ToList();
-                ListViewVehicles.ItemsSource = vehicles;
-                _vehiclesLoaded = true;
-            }
+            var vehicles = context.Vehicles.ToList();
+            ListViewVehicles.ItemsSource = vehicles;
+            _vehiclesLoaded = true;
         }
 
         public void AddVehicle()
         {
-            using (var context = new FleetDatabaseContext())
+            var window = new AddModifyVehicleWindow();
+            if (window.ShowDialog() == true)
             {
-                var window = new AddModifyVehicleWindow();
-                if (window.ShowDialog() == true)
-                {
-                    Vehicle vehicle = window.VehicleData;
+                Vehicle vehicle = window.VehicleData;
 
-                    context.Vehicles.Add(vehicle);
-                    context.SaveChanges();
-                }
+                context.Vehicles.Add(vehicle);
+                context.SaveChanges();
             }
         }
 
@@ -76,26 +72,20 @@ namespace CompanyFleetManagerDesktopApp.Views
 
         private void DeleteVehicle(Vehicle v)
         {
-            using (var context = new FleetDatabaseContext())
-            {
-                var vehicleToRemove = context.Vehicles.Find(v.VehicleId);
-                context.Vehicles.Remove(vehicleToRemove);
-                context.SaveChanges();
-            }
+            var vehicleToRemove = context.Vehicles.Find(v.VehicleId);
+            context.Vehicles.Remove(vehicleToRemove);
+            context.SaveChanges();
         }
 
         private void ModifyVehicle(Vehicle vehicle)
         {
-            using (var context = new FleetDatabaseContext())
+            var window = new AddModifyVehicleWindow(vehicle);
+            if (window.ShowDialog() == true)
             {
-                var window = new AddModifyVehicleWindow(vehicle);
-                if (window.ShowDialog() == true)
-                {
-                    Vehicle modifiedVehicle = window.VehicleData;
+                Vehicle modifiedVehicle = window.VehicleData;
 
-                    context.Vehicles.Update(modifiedVehicle);
-                    context.SaveChanges();
-                }
+                context.Vehicles.Update(modifiedVehicle);
+                context.SaveChanges();
             }
         }
     }

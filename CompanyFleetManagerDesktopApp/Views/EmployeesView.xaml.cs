@@ -23,10 +23,12 @@ namespace CompanyFleetManagerDesktopApp.Views
     public partial class EmployeesView : UserControl
     {
         private bool _employeesLoaded = false;
+        private FleetDatabaseContext context;
 
         public EmployeesView()
         {
             InitializeComponent();
+            context = new FleetDatabaseContext();
         }
 
         private Employee GetSelectedEmployee() => ListViewEmployees.SelectedItem as Employee;
@@ -34,29 +36,22 @@ namespace CompanyFleetManagerDesktopApp.Views
         {
             if (_employeesLoaded)
                 return;
-
-            using (var context = new FleetDatabaseContext())
-            {
-                var employees = context.Employees.ToList();
-                ListViewEmployees.ItemsSource = employees;
-                _employeesLoaded = true;
-            }
+            var employees = context.Employees.ToList();
+            ListViewEmployees.ItemsSource = employees;
+            _employeesLoaded = true;
         }
 
         public void AddEmployee()
         {
             _employeesLoaded = false;
 
-            using (var context = new FleetDatabaseContext())
+            var window = new AddModifyEmployeeWindow();
+            if (window.ShowDialog() == true)
             {
-                var window = new AddModifyEmployeeWindow();
-                if (window.ShowDialog() == true)
-                {
-                    Employee employee = window.EmployeeData;
+                Employee employee = window.EmployeeData;
 
-                    context.Employees.Add(employee);
-                    context.SaveChanges();
-                }
+                context.Employees.Add(employee);
+                context.SaveChanges();
             }
 
             LoadEmployees();
@@ -81,30 +76,23 @@ namespace CompanyFleetManagerDesktopApp.Views
 
         private void DeleteEmployee(Employee e)
         {
-            using (var context = new FleetDatabaseContext())
-            {
-                var employeeToRemove = context.Employees.Find(e.EmployeeId);
-                context.Employees.Remove(employeeToRemove);
-                context.SaveChanges();
-            }
+            var employeeToRemove = context.Employees.Find(e.EmployeeId);
+            context.Employees.Remove(employeeToRemove);
+            context.SaveChanges();
+
         }
 
 
         private void ModifyEmployee(Employee employee)
         {
-            using (var context = new FleetDatabaseContext())
+            var window = new AddModifyEmployeeWindow(employee);
+            if (window.ShowDialog() == true)
             {
-                var window = new AddModifyEmployeeWindow(employee);
-                if (window.ShowDialog() == true)
-                {
-                    Employee modifiedEmployee = window.EmployeeData;
+                Employee modifiedEmployee = window.EmployeeData;
 
-                    context.Employees.Update(modifiedEmployee);
-                    context.SaveChanges();
-                }
+                context.Employees.Update(modifiedEmployee);
+                context.SaveChanges();
             }
         }
-
-
     }
 }
