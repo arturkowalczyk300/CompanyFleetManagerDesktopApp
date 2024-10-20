@@ -7,7 +7,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid>
-            <ListView Name="ListViewRentals" SelectionMode="Single">
+            <ListView Name="ListViewRentals" SelectionMode="Single" ItemsSource="{Binding RentalsInfo}" SelectedItem="{Binding SelectedRentalInfo}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Rented vehicle" DisplayMemberBinding="{Binding VehicleShortenedInfo}" Width="200"/>

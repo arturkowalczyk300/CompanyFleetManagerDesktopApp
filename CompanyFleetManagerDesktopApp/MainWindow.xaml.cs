@@ -1,5 +1,6 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
+using CompanyFleetManagerDesktopApp.ViewModels;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,11 +14,12 @@ using System.Windows.Shapes;
 
 namespace CompanyFleetManagerDesktopApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private RentalsViewModel _rentalsViewModel = new RentalsViewModel();
+        private EmployeesViewModel _employeesViewModel = new EmployeesViewModel();
+        private VehiclesViewModel _vehiclesViewModel = new VehiclesViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -26,6 +28,10 @@ namespace CompanyFleetManagerDesktopApp
             ButtonAdd.Click += ButtonAdd_Click;
             ButtonModify.Click += ButtonModify_Click;
             ButtonDelete.Click += ButtonDelete_Click;
+
+            EmployeesView.DataContext = _employeesViewModel;
+            VehiclesView.DataContext = _vehiclesViewModel;
+            RentalsView.DataContext = _rentalsViewModel;
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
@@ -33,13 +39,13 @@ namespace CompanyFleetManagerDesktopApp
             switch (GetSelectedTab())
             {
                 case "Rentals":
-                    RentalsView.DeleteSelectedRental();               
+                    _rentalsViewModel.DeleteSelectedRental();
                     break;
                 case "Employees":
-                    EmployeesView.DeleteSelectedEmployee();
+                    _employeesViewModel.DeleteSelectedEmployee();
                     break;
                 case "Vehicles":
-                    VehiclesView.DeleteSelectedVehicle();
+                    _vehiclesViewModel.DeleteSelectedVehicle();
                     break;
             }
         }
@@ -49,13 +55,13 @@ namespace CompanyFleetManagerDesktopApp
             switch (GetSelectedTab())
             {
                 case "Rentals":
-                    RentalsView.ModifySelectedRental();
+                    _rentalsViewModel.ModifySelectedRental();
                     break;
                 case "Employees":
-                    EmployeesView.ModifySelectedEmployee();
+                    _employeesViewModel.ModifySelectedEmployee();
                     break;
                 case "Vehicles":
-                    VehiclesView.ModifySelectedVehicle();
+                    _vehiclesViewModel.ModifySelectedVehicle();
                     break;
             }
         }
@@ -65,13 +71,13 @@ namespace CompanyFleetManagerDesktopApp
             switch (GetSelectedTab())
             {
                 case "Rentals":
-                    RentalsView.AddRental();
+                    _rentalsViewModel.AddRental();
                     break;
                 case "Employees":
-                    EmployeesView.AddEmployee();
+                    _employeesViewModel.AddEmployee();
                     break;
                 case "Vehicles":
-                    VehiclesView.AddVehicle();
+                    _vehiclesViewModel.AddVehicle();
                     break;
             }
         }
@@ -83,15 +89,15 @@ namespace CompanyFleetManagerDesktopApp
             switch (selectedTab)
             {
                 case "Rentals":
-                    RentalsView.LoadRentals();
+                    _rentalsViewModel.LoadRentals();
                     break;
 
                 case "Employees":
-                    EmployeesView.LoadEmployees();
+                    _employeesViewModel.LoadEmployees();
                     break;
 
                 case "Vehicles":
-                    VehiclesView.LoadVehicles();
+                    _vehiclesViewModel.LoadVehicles();
                     break;
             }
         }

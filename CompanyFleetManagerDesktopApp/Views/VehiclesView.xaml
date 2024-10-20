@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView Name="ListViewVehicles">
+        <ListView Name="ListViewVehicles" ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Brand" DisplayMemberBinding="{Binding Brand}" Width="200"/>

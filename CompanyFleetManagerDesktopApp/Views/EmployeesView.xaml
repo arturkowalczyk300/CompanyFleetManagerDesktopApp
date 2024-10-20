@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView Name="ListViewEmployees">
+        <ListView Name="ListViewEmployees" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Occupation" DisplayMemberBinding="{Binding Occupation}" Width="200"/>
