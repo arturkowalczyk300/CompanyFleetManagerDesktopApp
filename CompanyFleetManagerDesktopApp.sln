@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyFleetManagerDesktopA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompanyFleetManager", "..\CompanyFleetManager\CompanyFleetManager\CompanyFleetManager.csproj", "{B9BA07B2-187D-4329-A1A7-663ED9306405}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyFleetManagerDesktopAppTests", "CompanyFleetManagerDesktopAppTests\CompanyFleetManagerDesktopAppTests.csproj", "{1A14331E-D3B7-4C10-B16B-8E0F198E6322}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B9BA07B2-187D-4329-A1A7-663ED9306405}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9BA07B2-187D-4329-A1A7-663ED9306405}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9BA07B2-187D-4329-A1A7-663ED9306405}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A14331E-D3B7-4C10-B16B-8E0F198E6322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A14331E-D3B7-4C10-B16B-8E0F198E6322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A14331E-D3B7-4C10-B16B-8E0F198E6322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A14331E-D3B7-4C10-B16B-8E0F198E6322}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

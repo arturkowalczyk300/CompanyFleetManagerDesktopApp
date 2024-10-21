@@ -13,10 +13,7 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 {
     public class RentalsViewModel : INotifyPropertyChanged
     {
-        public RentalsViewModel()
-        {
-            context = new FleetDatabaseContext();
-        }
+        private FleetDatabaseContext _context;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -25,11 +22,19 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-        private bool _rentalsLoaded = false;
-        private FleetDatabaseContext context;
+        private bool _rentalsLoaded = false;   
 
         private ObservableCollection<RentalInfo> _rentalsInfo;
+
+        public RentalsViewModel()
+        {
+            _context = new FleetDatabaseContext();
+        }
+
+        public RentalsViewModel(FleetDatabaseContext context)
+        {
+            _context = context;
+        }
 
         //binded variables
         public RentalInfo SelectedRentalInfo { get; set; }
@@ -49,13 +54,13 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             if (_rentalsLoaded)
                 return;
 
-            var rentals = context.Rentals.ToList();
+            var rentals = _context.Rentals.ToList();
             var rentalInfo = new List<RentalInfo>();
 
             foreach (var rental in rentals)
             {
-                var employee = context.Employees.ToList().Find(x => x.EmployeeId == rental.RentingEmployeeId);
-                var vehicle = context.Vehicles.ToList().Find(x => x.VehicleId == rental.RentedVehicleId);
+                var employee = _context.Employees.ToList().Find(x => x.EmployeeId == rental.RentingEmployeeId);
+                var vehicle = _context.Vehicles.ToList().Find(x => x.VehicleId == rental.RentedVehicleId);
                 rentalInfo.Add(new RentalInfo(rental, employee, vehicle));
             }
 
@@ -67,13 +72,13 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
         public void AddRental()
         {
             _rentalsLoaded = false;
-            var window = new AddModifyRentalWindow(context.Vehicles.ToList(), context.Employees.ToList(), null);
+            var window = new AddModifyRentalWindow(_context.Vehicles.ToList(), _context.Employees.ToList(), null);
             if (window.ShowDialog() == true)
             {
                 Rental rental = window.RentalData;
 
-                context.Rentals.Add(rental);
-                context.SaveChanges();
+                _context.Rentals.Add(rental);
+                _context.SaveChanges();
             }
             LoadRentals();
         }
@@ -94,21 +99,21 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         private void DeleteRental(Rental r)
         {
-            var rentalToRemove = context.Rentals.Find(r.RentalId);
-            context.Rentals.Remove(rentalToRemove);
-            context.SaveChanges();
+            var rentalToRemove = _context.Rentals.Find(r.RentalId);
+            _context.Rentals.Remove(rentalToRemove);
+            _context.SaveChanges();
 
         }
 
         private void ModifyRental(Rental rental)
         {
-            var window = new AddModifyRentalWindow(context.Vehicles.ToList(), context.Employees.ToList(), rental);
+            var window = new AddModifyRentalWindow(_context.Vehicles.ToList(), _context.Employees.ToList(), rental);
             if (window.ShowDialog() == true)
             {
                 Rental modifiedRental = window.RentalData;
 
-                context.Rentals.Update(modifiedRental);
-                context.SaveChanges();
+                _context.Rentals.Update(modifiedRental);
+                _context.SaveChanges();
             }
         }
     }

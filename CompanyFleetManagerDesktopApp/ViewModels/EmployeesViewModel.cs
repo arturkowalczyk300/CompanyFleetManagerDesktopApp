@@ -12,10 +12,7 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 {
     public class EmployeesViewModel : INotifyPropertyChanged
     {
-        public EmployeesViewModel()
-        {
-            context = new FleetDatabaseContext();
-        }
+        private FleetDatabaseContext _context;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -26,10 +23,20 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
 
         private bool _employeesLoaded = false;
-        private FleetDatabaseContext context;
+        
 
 
         private ObservableCollection<Employee> _employees;
+
+        public EmployeesViewModel()
+        {
+            _context = new FleetDatabaseContext();
+        }
+
+        public EmployeesViewModel(FleetDatabaseContext context)
+        {
+            _context = context;
+        }
 
         //binded variables
         public Employee SelectedEmployee { get; set; }
@@ -48,7 +55,7 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
         {
             if (_employeesLoaded)
                 return;
-            Employees = new ObservableCollection<Employee>(context.Employees.ToList());
+            Employees = new ObservableCollection<Employee>(_context.Employees.ToList());
             _employeesLoaded = true;
         }
 
@@ -61,8 +68,8 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             {
                 Employee employee = window.EmployeeData;
 
-                context.Employees.Add(employee);
-                context.SaveChanges();
+                _context.Employees.Add(employee);
+                _context.SaveChanges();
             }
 
             LoadEmployees();
@@ -87,9 +94,9 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         private void DeleteEmployee(Employee e)
         {
-            var employeeToRemove = context.Employees.Find(e.EmployeeId);
-            context.Employees.Remove(employeeToRemove);
-            context.SaveChanges();
+            var employeeToRemove = _context.Employees.Find(e.EmployeeId);
+            _context.Employees.Remove(employeeToRemove);
+            _context.SaveChanges();
 
         }
 
@@ -101,8 +108,8 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             {
                 Employee modifiedEmployee = window.EmployeeData;
 
-                context.Employees.Update(modifiedEmployee);
-                context.SaveChanges();
+                _context.Employees.Update(modifiedEmployee);
+                _context.SaveChanges();
             }
         }
     }

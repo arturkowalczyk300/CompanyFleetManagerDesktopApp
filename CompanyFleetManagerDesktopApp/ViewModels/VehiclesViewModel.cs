@@ -12,10 +12,7 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 {
     public class VehiclesViewModel : INotifyPropertyChanged
     {
-        public VehiclesViewModel()
-        {
-            context = new FleetDatabaseContext();
-        }
+        private FleetDatabaseContext _context;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -26,9 +23,17 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         private bool _vehiclesLoaded = false;
 
-        private FleetDatabaseContext context;
-
         private ObservableCollection<Vehicle> _vehicles;
+
+        public VehiclesViewModel()
+        {
+            _context = new FleetDatabaseContext();
+        }
+
+        public VehiclesViewModel(FleetDatabaseContext context)
+        {
+            _context = context;
+        }
 
 
         //binded variables
@@ -49,7 +54,7 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             if (_vehiclesLoaded)
                 return;
 
-            Vehicles = new ObservableCollection<Vehicle>(context.Vehicles.ToList());
+            Vehicles = new ObservableCollection<Vehicle>(_context.Vehicles.ToList());
             _vehiclesLoaded = true;
         }
 
@@ -60,8 +65,8 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             {
                 Vehicle vehicle = window.VehicleData;
 
-                context.Vehicles.Add(vehicle);
-                context.SaveChanges();
+                _context.Vehicles.Add(vehicle);
+                _context.SaveChanges();
             }
         }
 
@@ -83,9 +88,9 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         private void DeleteVehicle(Vehicle v)
         {
-            var vehicleToRemove = context.Vehicles.Find(v.VehicleId);
-            context.Vehicles.Remove(vehicleToRemove);
-            context.SaveChanges();
+            var vehicleToRemove = _context.Vehicles.Find(v.VehicleId);
+            _context.Vehicles.Remove(vehicleToRemove);
+            _context.SaveChanges();
         }
 
         private void ModifyVehicle(Vehicle vehicle)
@@ -95,8 +100,8 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             {
                 Vehicle modifiedVehicle = window.VehicleData;
 
-                context.Vehicles.Update(modifiedVehicle);
-                context.SaveChanges();
+                _context.Vehicles.Update(modifiedVehicle);
+                _context.SaveChanges();
             }
         }
     }
