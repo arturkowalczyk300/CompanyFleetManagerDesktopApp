@@ -1,13 +1,14 @@
 ﻿using CompanyFleetManager;
 using CompanyFleetManager.Models.Entities;
 using CompanyFleetManagerDesktopApp.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace CompanyFleetManagerDesktopAppTests
 {
     public class EmployeesViewModelTest
     {
-        private List<Employee> GetSampleEmployees()
+        public static List<Employee> GetSampleEmployees()
         {
             return new List<Employee>() {
             new Employee(1, "Driver", "Wrocław Kwiatowa 1", "Janusz", "Mariusz", "Kowalski", 73213242123, new CompanyFleetManager.Models.PhoneNumber(48, 987654321),
@@ -43,7 +44,23 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void LoadEmployees_PopulatesEmployeeCollection()
         {
-            throw new NotImplementedException();
+            var data = GetSampleEmployees().AsQueryable();
+
+            var mockSet = new Mock<DbSet<Employee>>();
+            mockSet.As<IQueryable<Employee>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Employee>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Employee>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Employee>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+
+            var mockContent = new Mock<FleetDatabaseContext>();
+            mockContent.Setup(c => c.Employees).Returns(mockSet.Object);
+
+            var viewModel = new EmployeesViewModel(mockContent.Object);
+
+            viewModel.LoadEmployees();
+
+            Assert.NotEmpty(viewModel.Employees);
+            Assert.Equal(viewModel.Employees.Count, GetSampleEmployees().Count);
         }
 
         [Fact]

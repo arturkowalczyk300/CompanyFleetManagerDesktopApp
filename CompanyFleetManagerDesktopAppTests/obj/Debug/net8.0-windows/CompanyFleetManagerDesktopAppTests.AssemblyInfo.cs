@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CompanyFleetManagerDesktopAppTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0de49c4d07727865ae1e658f69c4caf45f99ee2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+76566d4997cc1b78e273c424bdeef490c0bba0b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("CompanyFleetManagerDesktopAppTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CompanyFleetManagerDesktopAppTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,5 +1,7 @@
 CompanyFleetManagerDesktopApp/[Bb]in/
 CompanyFleetManagerDesktopApp/[Oo]bj/
+CompanyFleetManagerDesktopAppTests/[Bb]in/
+CompanyFleetManagerDesktopAppTests/[Oo]bj/
 .vs/
 *.db
 *.db-shm

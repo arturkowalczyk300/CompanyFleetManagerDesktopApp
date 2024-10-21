@@ -9,7 +9,7 @@ namespace CompanyFleetManagerDesktopAppTests
 {
     public class VehiclesViewModelTest
     {
-        private List<Vehicle> GetSampleVehicles()
+        public static List<Vehicle> GetSampleVehicles()
         {
             return new List<Vehicle>() {
                     new Vehicle(1, "Audi", "A6", "DW 321AB", 2024, 24002, new DateOnly(2026, 9, 11), false),
@@ -42,7 +42,23 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void LoadVehicles_PopulatesVehicleCollection()
         {
-            throw new NotImplementedException();
+            var data = GetSampleVehicles().AsQueryable();
+
+            var mockSet = new Mock<DbSet<Vehicle>>();
+            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+
+            var mockContext = new Mock<FleetDatabaseContext>();
+            mockContext.Setup(c => c.Vehicles).Returns(mockSet.Object);
+
+            var viewModel = new VehiclesViewModel(mockContext.Object);
+
+            viewModel.LoadVehicles();
+
+            Assert.NotEmpty(viewModel.Vehicles);
+            Assert.Equal(viewModel.Vehicles.Count, GetSampleVehicles().Count);
         }
 
         [Fact]
