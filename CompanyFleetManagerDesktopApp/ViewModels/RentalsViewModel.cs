@@ -22,7 +22,7 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private bool _rentalsLoaded = false;   
+        private bool _rentalsLoaded = false;
 
         private ObservableCollection<RentalInfo> _rentalsInfo;
 
@@ -45,7 +45,7 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             set
             {
                 _rentalsInfo = value;
-                OnPropertyChanged(nameof(RentalInfo));
+                OnPropertyChanged(nameof(RentalsInfo));
             }
         }
 
@@ -69,23 +69,18 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             _rentalsLoaded = true;
 
         }
-        public void AddRental()
+        public void AddRental(Rental rental)
         {
             _rentalsLoaded = false;
-            var window = new AddModifyRentalWindow(_context.Vehicles.ToList(), _context.Employees.ToList(), null);
-            if (window.ShowDialog() == true)
-            {
-                Rental rental = window.RentalData;
+            _context.Rentals.Add(rental);
+            _context.SaveChanges();
 
-                _context.Rentals.Add(rental);
-                _context.SaveChanges();
-            }
             LoadRentals();
         }
-        public void ModifySelectedRental()
+        public void ModifySelectedRental(Rental rental)
         {
             _rentalsLoaded = false;
-            ModifyRental(SelectedRentalInfo.Rental);
+            ModifyRental(rental);
 
             LoadRentals();
         }
@@ -105,16 +100,10 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         }
 
-        private void ModifyRental(Rental rental)
+        private void ModifyRental(Rental modifiedRental)
         {
-            var window = new AddModifyRentalWindow(_context.Vehicles.ToList(), _context.Employees.ToList(), rental);
-            if (window.ShowDialog() == true)
-            {
-                Rental modifiedRental = window.RentalData;
-
-                _context.Rentals.Update(modifiedRental);
-                _context.SaveChanges();
-            }
+            _context.Rentals.Update(modifiedRental);
+            _context.SaveChanges();
         }
     }
 }

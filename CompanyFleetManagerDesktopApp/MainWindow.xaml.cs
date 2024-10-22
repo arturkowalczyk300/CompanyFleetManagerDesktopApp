@@ -55,13 +55,13 @@ namespace CompanyFleetManagerDesktopApp
             switch (GetSelectedTab())
             {
                 case "Rentals":
-                    _rentalsViewModel.ModifySelectedRental();
+                    OpenAddModifyRentalsWindow(modify: true);
                     break;
                 case "Employees":
-                    _employeesViewModel.ModifySelectedEmployee();
+                    OpenAddModifyEmployeesWindow(modify: true);
                     break;
                 case "Vehicles":
-                    _vehiclesViewModel.ModifySelectedVehicle();
+                    OpenAddModifyVehiclesWindow(modify: true);
                     break;
             }
         }
@@ -71,13 +71,13 @@ namespace CompanyFleetManagerDesktopApp
             switch (GetSelectedTab())
             {
                 case "Rentals":
-                    _rentalsViewModel.AddRental();
+                    OpenAddModifyRentalsWindow(modify: false);
                     break;
                 case "Employees":
-                    _employeesViewModel.AddEmployee();
+                    OpenAddModifyEmployeesWindow(modify: false);
                     break;
                 case "Vehicles":
-                    _vehiclesViewModel.AddVehicle();
+                    OpenAddModifyVehiclesWindow(modify: false);
                     break;
             }
         }
@@ -103,5 +103,47 @@ namespace CompanyFleetManagerDesktopApp
         }
 
         private string GetSelectedTab() => (TabControl.SelectedItem as TabItem).Header.ToString();
+
+
+        private void OpenAddModifyRentalsWindow(Boolean modify)
+        {
+            _vehiclesViewModel.LoadVehicles();
+            _employeesViewModel.LoadEmployees();
+            _rentalsViewModel.LoadRentals();
+            List<Vehicle> vehicles = _vehiclesViewModel.Vehicles.ToList();
+            List<Employee> employees = _employeesViewModel.Employees.ToList();
+            var window = new AddModifyRentalWindow(vehicles, employees, _rentalsViewModel.SelectedRentalInfo.Rental);
+            if (window.ShowDialog() == true)
+            {
+                if (modify)
+                    _rentalsViewModel.ModifySelectedRental(window.RentalData);
+                else
+                    _rentalsViewModel.AddRental(window.RentalData);
+            }
+        }
+
+        private void OpenAddModifyEmployeesWindow(Boolean modify)
+        {
+            var window = new AddModifyEmployeeWindow(_employeesViewModel.SelectedEmployee);
+            if (window.ShowDialog() == true)
+            {
+                if (modify)
+                    _employeesViewModel.ModifySelectedEmployee(window.EmployeeData);
+                else
+                    _employeesViewModel.AddEmployee(window.EmployeeData);
+            }
+        }
+
+        private void OpenAddModifyVehiclesWindow(Boolean modify)
+        {
+            var window = new AddModifyVehicleWindow(_vehiclesViewModel.SelectedVehicle);
+            if (window.ShowDialog() == true)
+            {
+                if (modify)
+                    _vehiclesViewModel.ModifySelectedVehicle(window.VehicleData);
+                else
+                    _vehiclesViewModel.AddVehicle(window.VehicleData);
+            }
+        }
     }
 }

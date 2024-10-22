@@ -1,11 +1,6 @@
 ﻿using CompanyFleetManager.Models.Entities;
 using CompanyFleetManager;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 
 namespace CompanyFleetManagerDesktopApp.ViewModels
@@ -23,7 +18,7 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
 
         private bool _employeesLoaded = false;
-        
+
 
 
         private ObservableCollection<Employee> _employees;
@@ -59,26 +54,19 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             _employeesLoaded = true;
         }
 
-        public void AddEmployee()
+        public void AddEmployee(Employee employee)
         {
             _employeesLoaded = false;
-
-            var window = new AddModifyEmployeeWindow();
-            if (window.ShowDialog() == true)
-            {
-                Employee employee = window.EmployeeData;
-
-                _context.Employees.Add(employee);
-                _context.SaveChanges();
-            }
+            _context.Employees.Add(employee);
+            _context.SaveChanges();
 
             LoadEmployees();
         }
 
-        public void ModifySelectedEmployee()
+        public void ModifySelectedEmployee(Employee employee)
         {
             _employeesLoaded = false;
-            ModifyEmployee(SelectedEmployee);
+            ModifyEmployee(employee);
 
             LoadEmployees();
         }
@@ -101,16 +89,10 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
         }
 
 
-        private void ModifyEmployee(Employee employee)
+        private void ModifyEmployee(Employee modifiedEmployee)
         {
-            var window = new AddModifyEmployeeWindow(employee);
-            if (window.ShowDialog() == true)
-            {
-                Employee modifiedEmployee = window.EmployeeData;
-
-                _context.Employees.Update(modifiedEmployee);
-                _context.SaveChanges();
-            }
+            _context.Employees.Update(modifiedEmployee);
+            _context.SaveChanges();
         }
     }
 }

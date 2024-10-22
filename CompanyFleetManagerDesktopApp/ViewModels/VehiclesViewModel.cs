@@ -38,7 +38,7 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         //binded variables
         public Vehicle SelectedVehicle { get; set; }
-        
+
         public ObservableCollection<Vehicle> Vehicles
         {
             get => _vehicles;
@@ -58,22 +58,19 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             _vehiclesLoaded = true;
         }
 
-        public void AddVehicle()
-        {
-            var window = new AddModifyVehicleWindow();
-            if (window.ShowDialog() == true)
-            {
-                Vehicle vehicle = window.VehicleData;
-
-                _context.Vehicles.Add(vehicle);
-                _context.SaveChanges();
-            }
-        }
-
-        public void ModifySelectedVehicle()
+        public void AddVehicle(Vehicle vehicle)
         {
             _vehiclesLoaded = false;
-            ModifyVehicle(SelectedVehicle);
+            _context.Vehicles.Add(vehicle);
+            _context.SaveChanges();
+
+            LoadVehicles();
+        }
+
+        public void ModifySelectedVehicle(Vehicle vehicle)
+        {
+            _vehiclesLoaded = false;
+            ModifyVehicle(vehicle);
 
             LoadVehicles();
         }
@@ -93,16 +90,10 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
             _context.SaveChanges();
         }
 
-        private void ModifyVehicle(Vehicle vehicle)
+        private void ModifyVehicle(Vehicle modifiedVehicle)
         {
-            var window = new AddModifyVehicleWindow(vehicle);
-            if (window.ShowDialog() == true)
-            {
-                Vehicle modifiedVehicle = window.VehicleData;
-
-                _context.Vehicles.Update(modifiedVehicle);
-                _context.SaveChanges();
-            }
+            _context.Vehicles.Update(modifiedVehicle);
+            _context.SaveChanges();
         }
     }
 }
