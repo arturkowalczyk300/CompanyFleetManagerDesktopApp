@@ -33,6 +33,8 @@ namespace CompanyFleetManagerDesktopAppTests
 
             var mockContext = new Mock<FleetDatabaseContext>();
             mockContext.Setup(c => c.Vehicles).Returns(mockSet.Object);
+            mockContext.Setup(c => c.Vehicles.Find(It.IsAny<object[]>())).Returns<object[]>(
+                ids => mockSet.Object.FirstOrDefault(v => v.VehicleId == (int)ids[0]));
             return mockContext;
         }
 
@@ -89,17 +91,43 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void ModifySelectedVehicle_UpdatesVehicle()
         {
-            throw new NotImplementedException();
+            var data = GetSampleVehicles().AsQueryable();
+            var mockContext = GetConfiguredMockContext(data);
+            var viewModel = new VehiclesViewModel(mockContext.Object);
+
+            var vehicleToModify = GetSampleVehicles()[1];
+
+            viewModel.SelectedVehicle = vehicleToModify;
+            viewModel.ModifySelectedVehicle(vehicleToModify);
+
+            mockContext.Verify(c => c.Vehicles.Update(It.Is<Vehicle>(v => v == vehicleToModify)), Times.Once());
+            mockContext.Verify(c => c.SaveChanges(), Times.Once());
         }
 
         [Fact]
         public void DeleteSelectedVehicle_RemovesVehicle()
         {
-            throw new NotImplementedException();
+            var data = GetSampleVehicles().AsQueryable();
+            var mockContext = GetConfiguredMockContext(data);
+            var viewModel = new VehiclesViewModel(mockContext.Object);
+
+            var vehicleToDelete = GetSampleVehicles()[2];
+
+            viewModel.SelectedVehicle = vehicleToDelete;
+            viewModel.DeleteSelectedVehicle();
+
+            mockContext.Verify(c => c.Vehicles.Remove(It.Is<Vehicle>(v => v.VehicleId == vehicleToDelete.VehicleId)), Times.Once());
+            mockContext.Verify(c => c.SaveChanges(), Times.Once());
         }
 
         [Fact]
         public void ModifySelectedVehicle_NullVehicle_ThrowException()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void DeleteSelectedVehicle_NullVehicle_ThrowException()
         {
             throw new NotImplementedException();
         }

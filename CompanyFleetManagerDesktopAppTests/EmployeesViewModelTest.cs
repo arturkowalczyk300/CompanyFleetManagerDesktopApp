@@ -24,9 +24,11 @@ namespace CompanyFleetManagerDesktopAppTests
         {
             Mock<DbSet<Employee>> mockSet = GetConfiguredMockDbSet(data);
 
-            var mockContent = new Mock<FleetDatabaseContext>();
-            mockContent.Setup(c => c.Employees).Returns(mockSet.Object);
-            return mockContent;
+            var mockContext = new Mock<FleetDatabaseContext>();
+            mockContext.Setup(c => c.Employees).Returns(mockSet.Object);
+            mockContext.Setup(c => c.Employees.Find(It.IsAny<object[]>())).Returns<object[]>(
+                ids => mockSet.Object.FirstOrDefault(e => e.EmployeeId == (int)ids[0]));
+            return mockContext;
         }
 
         private static Mock<DbSet<Employee>> GetConfiguredMockDbSet(IQueryable<Employee> data)
@@ -92,17 +94,43 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void ModifySelectedEmployee_UpdatesEmployee()
         {
-            throw new NotImplementedException();
+            var data = GetSampleEmployees().AsQueryable();
+            var mockContext = GetConfiguredMockContext(data);
+            var viewModel = new EmployeesViewModel(mockContext.Object);
+
+            var employeeToModify = GetSampleEmployees()[1];
+
+            viewModel.SelectedEmployee = employeeToModify;
+            viewModel.ModifySelectedEmployee(employeeToModify);
+
+            mockContext.Verify(c => c.Employees.Update(It.Is<Employee>(e => e == employeeToModify)), Times.Once());
+            mockContext.Verify(c => c.SaveChanges(), Times.Once());
         }
 
         [Fact]
         public void DeleteSelectedEmployee_RemovesEmployee()
         {
-            throw new NotImplementedException();
+            var data = GetSampleEmployees().AsQueryable();
+            var mockContext = GetConfiguredMockContext(data);
+            var viewModel = new EmployeesViewModel(mockContext.Object);
+
+            var employeeToDelete = GetSampleEmployees()[2];
+
+            viewModel.SelectedEmployee = employeeToDelete;
+            viewModel.DeleteSelectedEmployee();
+
+            mockContext.Verify(c => c.Employees.Remove(It.Is<Employee>(e => e.EmployeeId == employeeToDelete.EmployeeId)), Times.Once());
+            mockContext.Verify(c => c.SaveChanges(), Times.Once());
         }
 
         [Fact]
         public void ModifySelectedEmployee_NullEmployee_ThrowException()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void DeleteSelectedEmployee_NullEmployee_ThrowException()
         {
             throw new NotImplementedException();
         }

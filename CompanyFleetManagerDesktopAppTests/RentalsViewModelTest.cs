@@ -4,6 +4,7 @@ using CompanyFleetManagerDesktopApp.Models;
 using CompanyFleetManagerDesktopApp.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System.Net.Sockets;
 
 namespace CompanyFleetManagerDesktopAppTests
 {
@@ -31,6 +32,8 @@ namespace CompanyFleetManagerDesktopAppTests
             mockContext.Setup(c => c.Employees).Returns(employeesMockSet.Object);
             mockContext.Setup(c => c.Vehicles).Returns(vehiclesMockSet.Object);
             mockContext.Setup(c => c.Rentals).Returns(rentalsMockSet.Object);
+            mockContext.Setup(c => c.Rentals.Find(It.IsAny<object[]>())).Returns<object[]>(
+                ids => rentalsMockSet.Object.FirstOrDefault(r => r.RentalId == (int)ids[0]));
             return mockContext;
         }
 
@@ -127,17 +130,53 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void ModifySelectedRental_UpdatesRental()
         {
-            throw new NotImplementedException();
+            var employees = EmployeesViewModelTest.GetSampleEmployees().AsQueryable();
+            var vehicles = VehiclesViewModelTest.GetSampleVehicles().AsQueryable();
+            var rentals = GetSampleRentals().AsQueryable();
+
+            var mockContext = GetConfiguredMockContextRentals(employees, vehicles, rentals);
+            var viewModel = new RentalsViewModel(mockContext.Object);
+
+            var rentalToModify = GetSampleRentals()[1];
+            var correspondingEmployee = employees.Where(e => e.EmployeeId == rentalToModify.RentingEmployeeId).First();
+            var correspondingVehicle = vehicles.Where(v => v.VehicleId == rentalToModify.RentedVehicleId).First();
+
+            viewModel.SelectedRentalInfo = new RentalInfo(rentalToModify, correspondingEmployee, correspondingVehicle);
+            viewModel.ModifySelectedRental(rentalToModify);
+
+            mockContext.Verify(c => c.Rentals.Update(It.Is<Rental>(r => r.RentalId == rentalToModify.RentalId)), Times.Once());
+            mockContext.Verify(c => c.SaveChanges(), Times.Once());
         }
 
         [Fact]
         public void DeleteSelectedRental_RemovesRental()
         {
-            throw new NotImplementedException();
+            var employees = EmployeesViewModelTest.GetSampleEmployees().AsQueryable();
+            var vehicles = VehiclesViewModelTest.GetSampleVehicles().AsQueryable();
+            var rentals = GetSampleRentals().AsQueryable();
+
+            var mockContext = GetConfiguredMockContextRentals(employees, vehicles, rentals);
+            var viewModel = new RentalsViewModel(mockContext.Object);
+
+            var rentalToDelete = GetSampleRentals()[2];
+            var correspondingEmployee = employees.Where(e => e.EmployeeId == rentalToDelete.RentingEmployeeId).First();
+            var correspondingVehicle = vehicles.Where(v => v.VehicleId == rentalToDelete.RentedVehicleId).First();
+
+            viewModel.SelectedRentalInfo = new RentalInfo(rentalToDelete, correspondingEmployee, correspondingVehicle);
+            viewModel.DeleteSelectedRental();
+
+            mockContext.Verify(c => c.Rentals.Remove(It.Is<Rental>(r => r.RentalId == rentalToDelete.RentalId)), Times.Once());
+            mockContext.Verify(c => c.SaveChanges(), Times.Once());
         }
 
         [Fact]
         public void ModifySelectedRental_NullRental_ThrowException()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void DeleteSelectedRental_NullRental_ThrowException()
         {
             throw new NotImplementedException();
         }
