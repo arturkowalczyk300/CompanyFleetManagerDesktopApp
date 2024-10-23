@@ -65,6 +65,9 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         public void ModifySelectedEmployee(Employee employee)
         {
+            if (SelectedEmployee == null)
+                throw new InvalidOperationException();
+
             _employeesLoaded = false;
             ModifyEmployee(employee);
 
@@ -74,6 +77,9 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         public void DeleteSelectedEmployee()
         {
+            if (SelectedEmployee == null)
+                throw new InvalidOperationException();
+
             _employeesLoaded = false;
             DeleteEmployee(SelectedEmployee);
 

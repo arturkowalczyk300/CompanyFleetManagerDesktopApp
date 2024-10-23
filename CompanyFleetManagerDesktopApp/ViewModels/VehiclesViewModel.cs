@@ -69,6 +69,9 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         public void ModifySelectedVehicle(Vehicle vehicle)
         {
+            if (SelectedVehicle == null)
+                throw new InvalidOperationException();
+
             _vehiclesLoaded = false;
             ModifyVehicle(vehicle);
 
@@ -77,6 +80,9 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
 
         public void DeleteSelectedVehicle()
         {
+            if(SelectedVehicle == null)
+                throw new InvalidOperationException();
+
             _vehiclesLoaded = false;
             DeleteVehicle(SelectedVehicle);
 

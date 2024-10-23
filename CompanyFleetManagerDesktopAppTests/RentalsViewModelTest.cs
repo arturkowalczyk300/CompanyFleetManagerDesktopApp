@@ -83,7 +83,7 @@ namespace CompanyFleetManagerDesktopAppTests
             bool notificationSent = false;
             viewModel.PropertyChanged += (s, e) =>
             {
-                notificationSent = e.PropertyName == "RentalInfo";
+                notificationSent = e.PropertyName == "RentalsInfo";
             };
 
             viewModel.RentalsInfo = new System.Collections.ObjectModel.ObservableCollection<RentalInfo>();
@@ -172,13 +172,37 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void ModifySelectedRental_NullRental_ThrowException()
         {
-            throw new NotImplementedException();
+            var employees = EmployeesViewModelTest.GetSampleEmployees().AsQueryable();
+            var vehicles = VehiclesViewModelTest.GetSampleVehicles().AsQueryable();
+            var rentals = GetSampleRentals().AsQueryable();
+
+            var mockContext = GetConfiguredMockContextRentals(employees, vehicles, rentals);
+            var viewModel = new RentalsViewModel(mockContext.Object);
+
+            var rentalToModify = GetSampleRentals()[1];
+
+            viewModel.SelectedRentalInfo = null;
+            Assert.Throws<InvalidOperationException>(() => viewModel.ModifySelectedRental(rentalToModify));
+
+            mockContext.Verify(c => c.Rentals.Update(It.IsAny<Rental>()), Times.Never());
+            mockContext.Verify(c => c.SaveChanges(), Times.Never());
         }
 
         [Fact]
         public void DeleteSelectedRental_NullRental_ThrowException()
         {
-            throw new NotImplementedException();
+            var employees = EmployeesViewModelTest.GetSampleEmployees().AsQueryable();
+            var vehicles = VehiclesViewModelTest.GetSampleVehicles().AsQueryable();
+            var rentals = GetSampleRentals().AsQueryable();
+
+            var mockContext = GetConfiguredMockContextRentals(employees, vehicles, rentals);
+            var viewModel = new RentalsViewModel(mockContext.Object);
+
+            viewModel.SelectedRentalInfo = null;
+            Assert.Throws<InvalidOperationException>(() => viewModel.DeleteSelectedRental());
+
+            mockContext.Verify(c => c.Rentals.Remove(It.IsAny<Rental>()), Times.Never());
+            mockContext.Verify(c => c.SaveChanges(), Times.Never());
         }
     }
 }

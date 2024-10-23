@@ -79,6 +79,9 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
         }
         public void ModifySelectedRental(Rental rental)
         {
+            if (SelectedRentalInfo == null)
+                throw new InvalidOperationException();
+
             _rentalsLoaded = false;
             ModifyRental(rental);
 
@@ -86,6 +89,9 @@ namespace CompanyFleetManagerDesktopApp.ViewModels
         }
         public void DeleteSelectedRental()
         {
+            if (SelectedRentalInfo == null)
+                throw new InvalidOperationException();
+
             _rentalsLoaded = false;
             DeleteRental(SelectedRentalInfo.Rental);
 

@@ -126,13 +126,31 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void ModifySelectedEmployee_NullEmployee_ThrowException()
         {
-            throw new NotImplementedException();
+            var data = GetSampleEmployees().AsQueryable();
+            var mockContext = GetConfiguredMockContext(data);
+            var viewModel = new EmployeesViewModel(mockContext.Object);
+
+            var employeeToModify = GetSampleEmployees()[1];
+
+            viewModel.SelectedEmployee = null;
+            Assert.Throws<InvalidOperationException>(() => viewModel.ModifySelectedEmployee(employeeToModify));
+
+            mockContext.Verify(c => c.Employees.Update(It.IsAny<Employee>()), Times.Never());
+            mockContext.Verify(c => c.SaveChanges(), Times.Never());
         }
 
         [Fact]
         public void DeleteSelectedEmployee_NullEmployee_ThrowException()
         {
-            throw new NotImplementedException();
+            var data = GetSampleEmployees().AsQueryable();
+            var mockContext = GetConfiguredMockContext(data);
+            var viewModel = new EmployeesViewModel(mockContext.Object);
+
+            viewModel.SelectedEmployee = null;
+            Assert.Throws<InvalidOperationException>(() => viewModel.DeleteSelectedEmployee());
+
+            mockContext.Verify(c => c.Employees.Remove(It.IsAny<Employee>()), Times.Never());
+            mockContext.Verify(c => c.SaveChanges(), Times.Never());
         }
     }
 }
