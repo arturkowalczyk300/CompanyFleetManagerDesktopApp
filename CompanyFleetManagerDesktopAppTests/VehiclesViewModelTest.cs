@@ -17,6 +17,24 @@ namespace CompanyFleetManagerDesktopAppTests
                     new Vehicle(3, "Skoda", "Fabia", "WE 31DA3", 2020, 124202, new DateOnly(2025, 2, 1), false)
                     };
         }
+        private static Mock<DbSet<Vehicle>> GetConfiguredMockDbSet(IQueryable<Vehicle> data)
+        {
+            var mockSet = new Mock<DbSet<Vehicle>>();
+            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+            return mockSet;
+        }
+
+        private static Mock<FleetDatabaseContext> GetConfiguredMockContext(IQueryable<Vehicle> data)
+        {
+            Mock<DbSet<Vehicle>> mockSet = GetConfiguredMockDbSet(data);
+
+            var mockContext = new Mock<FleetDatabaseContext>();
+            mockContext.Setup(c => c.Vehicles).Returns(mockSet.Object);
+            return mockContext;
+        }
 
         [Fact]
         public void Initialization_IsCorrect()
@@ -43,15 +61,7 @@ namespace CompanyFleetManagerDesktopAppTests
         public void LoadVehicles_PopulatesVehicleCollection()
         {
             var data = GetSampleVehicles().AsQueryable();
-
-            var mockSet = new Mock<DbSet<Vehicle>>();
-            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Vehicle>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
-
-            var mockContext = new Mock<FleetDatabaseContext>();
-            mockContext.Setup(c => c.Vehicles).Returns(mockSet.Object);
+            Mock<FleetDatabaseContext> mockContext = GetConfiguredMockContext(data);
 
             var viewModel = new VehiclesViewModel(mockContext.Object);
 
@@ -64,7 +74,16 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void AddVehicle_IncreasesVehiclesCount()
         {
-            throw new NotImplementedException();
+            var data = new List<Vehicle>().AsQueryable();
+            var mockContext = GetConfiguredMockContext(data);
+            var viewModel = new VehiclesViewModel(mockContext.Object);
+
+            var vehicleToAdd = GetSampleVehicles()[0];
+
+            viewModel.AddVehicle(vehicleToAdd);
+
+            mockContext.Verify(c => c.Vehicles.Add(It.Is<Vehicle>(v => v == vehicleToAdd)), Times.Once());
+            mockContext.Verify(c => c.SaveChanges(), Times.Once());
         }
 
         [Fact]

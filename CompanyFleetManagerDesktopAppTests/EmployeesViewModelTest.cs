@@ -20,6 +20,25 @@ namespace CompanyFleetManagerDesktopAppTests
                     };
         }
 
+        private static Mock<FleetDatabaseContext> GetConfiguredMockContext(IQueryable<Employee> data)
+        {
+            Mock<DbSet<Employee>> mockSet = GetConfiguredMockDbSet(data);
+
+            var mockContent = new Mock<FleetDatabaseContext>();
+            mockContent.Setup(c => c.Employees).Returns(mockSet.Object);
+            return mockContent;
+        }
+
+        private static Mock<DbSet<Employee>> GetConfiguredMockDbSet(IQueryable<Employee> data)
+        {
+            var mockSet = new Mock<DbSet<Employee>>();
+            mockSet.As<IQueryable<Employee>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Employee>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Employee>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Employee>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+            return mockSet;
+        }
+
         [Fact]
         public void Initialization_IsCorrect()
         {
@@ -45,15 +64,7 @@ namespace CompanyFleetManagerDesktopAppTests
         public void LoadEmployees_PopulatesEmployeeCollection()
         {
             var data = GetSampleEmployees().AsQueryable();
-
-            var mockSet = new Mock<DbSet<Employee>>();
-            mockSet.As<IQueryable<Employee>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Employee>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Employee>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Employee>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
-
-            var mockContent = new Mock<FleetDatabaseContext>();
-            mockContent.Setup(c => c.Employees).Returns(mockSet.Object);
+            Mock<FleetDatabaseContext> mockContent = GetConfiguredMockContext(data);
 
             var viewModel = new EmployeesViewModel(mockContent.Object);
 
@@ -66,7 +77,16 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void AddEmployee_IncreasesEmployeesCount()
         {
-            throw new NotImplementedException();
+            var data = new List<Employee>().AsQueryable();
+            var mockContext = GetConfiguredMockContext(data);
+            var viewModel = new EmployeesViewModel(mockContext.Object);
+
+            var employeeToAdd = GetSampleEmployees()[0];
+
+            viewModel.AddEmployee(employeeToAdd);
+
+            mockContext.Verify(c => c.Employees.Add(It.Is<Employee>(e => e == employeeToAdd)), Times.Once);
+            mockContext.Verify(c => c.SaveChanges(), Times.Once);
         }
 
         [Fact]

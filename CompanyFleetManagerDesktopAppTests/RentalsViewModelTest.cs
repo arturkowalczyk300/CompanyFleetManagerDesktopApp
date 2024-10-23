@@ -19,6 +19,51 @@ namespace CompanyFleetManagerDesktopAppTests
             };
         }
 
+        private static Mock<FleetDatabaseContext> GetConfiguredMockContextRentals(IQueryable<Employee> employees,
+            IQueryable<Vehicle> vehicles,
+            IQueryable<Rental> rentals)
+        {
+            Mock<DbSet<Employee>> employeesMockSet = GetConfiguredMockDbSetEmployees(employees);
+            Mock<DbSet<Vehicle>> vehiclesMockSet = GetConfiguredMockDbSetVehicles(vehicles);
+            Mock<DbSet<Rental>> rentalsMockSet = GetConfiguredMockDbSetRentals(rentals);
+
+            var mockContext = new Mock<FleetDatabaseContext>();
+            mockContext.Setup(c => c.Employees).Returns(employeesMockSet.Object);
+            mockContext.Setup(c => c.Vehicles).Returns(vehiclesMockSet.Object);
+            mockContext.Setup(c => c.Rentals).Returns(rentalsMockSet.Object);
+            return mockContext;
+        }
+
+        private static Mock<DbSet<Rental>> GetConfiguredMockDbSetRentals(IQueryable<Rental> rentals)
+        {
+            var rentalsMockSet = new Mock<DbSet<Rental>>();
+            rentalsMockSet.As<IQueryable<Rental>>().Setup(m => m.Provider).Returns(rentals.Provider);
+            rentalsMockSet.As<IQueryable<Rental>>().Setup(m => m.Expression).Returns(rentals.Expression);
+            rentalsMockSet.As<IQueryable<Rental>>().Setup(m => m.ElementType).Returns(rentals.ElementType);
+            rentalsMockSet.As<IQueryable<Rental>>().Setup(m => m.GetEnumerator()).Returns(() => rentals.GetEnumerator());
+            return rentalsMockSet;
+        }
+
+        private static Mock<DbSet<Vehicle>> GetConfiguredMockDbSetVehicles(IQueryable<Vehicle> vehicles)
+        {
+            var vehiclesMockSet = new Mock<DbSet<Vehicle>>();
+            vehiclesMockSet.As<IQueryable<Vehicle>>().Setup(m => m.Provider).Returns(vehicles.Provider);
+            vehiclesMockSet.As<IQueryable<Vehicle>>().Setup(m => m.Expression).Returns(vehicles.Expression);
+            vehiclesMockSet.As<IQueryable<Vehicle>>().Setup(m => m.ElementType).Returns(vehicles.ElementType);
+            vehiclesMockSet.As<IQueryable<Vehicle>>().Setup(m => m.GetEnumerator()).Returns(() => vehicles.GetEnumerator());
+            return vehiclesMockSet;
+        }
+
+        private static Mock<DbSet<Employee>> GetConfiguredMockDbSetEmployees(IQueryable<Employee> employees)
+        {
+            var employeesMockSet = new Mock<DbSet<Employee>>();
+            employeesMockSet.As<IQueryable<Employee>>().Setup(m => m.Provider).Returns(employees.Provider);
+            employeesMockSet.As<IQueryable<Employee>>().Setup(m => m.Expression).Returns(employees.Expression);
+            employeesMockSet.As<IQueryable<Employee>>().Setup(m => m.ElementType).Returns(employees.ElementType);
+            employeesMockSet.As<IQueryable<Employee>>().Setup(m => m.GetEnumerator()).Returns(() => employees.GetEnumerator());
+            return employeesMockSet;
+        }
+
         [Fact]
         public void Initialization_IsCorrect()
         {
@@ -47,31 +92,11 @@ namespace CompanyFleetManagerDesktopAppTests
         public void LoadRentals_PopulatesRentalCollection()
         {
             var employees = EmployeesViewModelTest.GetSampleEmployees().AsQueryable();
-            var employeesMockSet = new Mock<DbSet<Employee>>();
-            employeesMockSet.As<IQueryable<Employee>>().Setup(m => m.Provider).Returns(employees.Provider);
-            employeesMockSet.As<IQueryable<Employee>>().Setup(m => m.Expression).Returns(employees.Expression);
-            employeesMockSet.As<IQueryable<Employee>>().Setup(m => m.ElementType).Returns(employees.ElementType);
-            employeesMockSet.As<IQueryable<Employee>>().Setup(m => m.GetEnumerator()).Returns(() => employees.GetEnumerator());
-
             var vehicles = VehiclesViewModelTest.GetSampleVehicles().AsQueryable();
-            var vehiclesMockSet = new Mock<DbSet<Vehicle>>();
-            vehiclesMockSet.As<IQueryable<Vehicle>>().Setup(m => m.Provider).Returns(vehicles.Provider);
-            vehiclesMockSet.As<IQueryable<Vehicle>>().Setup(m => m.Expression).Returns(vehicles.Expression);
-            vehiclesMockSet.As<IQueryable<Vehicle>>().Setup(m => m.ElementType).Returns(vehicles.ElementType);
-            vehiclesMockSet.As<IQueryable<Vehicle>>().Setup(m => m.GetEnumerator()).Returns(() => vehicles.GetEnumerator());
-
             var rentals = GetSampleRentals().AsQueryable();
-            var rentalsMockSet = new Mock<DbSet<Rental>>();
-            rentalsMockSet.As<IQueryable<Rental>>().Setup(m => m.Provider).Returns(rentals.Provider);
-            rentalsMockSet.As<IQueryable<Rental>>().Setup(m => m.Expression).Returns(rentals.Expression);
-            rentalsMockSet.As<IQueryable<Rental>>().Setup(m => m.ElementType).Returns(rentals.ElementType);
-            rentalsMockSet.As<IQueryable<Rental>>().Setup(m => m.GetEnumerator()).Returns(() => rentals.GetEnumerator());
 
 
-            var mockContext = new Mock<FleetDatabaseContext>();
-            mockContext.Setup(c => c.Employees).Returns(employeesMockSet.Object);
-            mockContext.Setup(c => c.Vehicles).Returns(vehiclesMockSet.Object);
-            mockContext.Setup(c => c.Rentals).Returns(rentalsMockSet.Object);
+            Mock<FleetDatabaseContext> mockContext = GetConfiguredMockContextRentals(employees, vehicles, rentals);
 
             var viewModel = new RentalsViewModel(mockContext.Object);
 
@@ -84,7 +109,19 @@ namespace CompanyFleetManagerDesktopAppTests
         [Fact]
         public void AddRental_IncreasesRentalsCount()
         {
-            throw new NotImplementedException();
+            var employees = new List<Employee>().AsQueryable();
+            var vehicles = new List<Vehicle>().AsQueryable();
+            var rentals = new List<Rental>().AsQueryable();
+
+            var mockContext = GetConfiguredMockContextRentals(employees, vehicles, rentals);
+            var viewModel = new RentalsViewModel(mockContext.Object);
+
+            var rentalToAdd = GetSampleRentals()[0];
+
+            viewModel.AddRental(rentalToAdd);
+
+            mockContext.Verify(c => c.Rentals.Add(It.Is<Rental>(r => r == rentalToAdd)), Times.Once());
+            mockContext.Verify(c => c.SaveChanges(), Times.Once());
         }
 
         [Fact]
