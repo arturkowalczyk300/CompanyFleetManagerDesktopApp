@@ -19,15 +19,15 @@
         </ToolBarTray>
         
         <TabControl Name="TabControl" Margin="0,30,0,0">
-            <TabItem Name="TabItemRentals" Header="Rentals">
+            <TabItem Name="TabItemRentals" Header="Rentals" AutomationProperties.AutomationId="TabItemRentals">
                 <local:RentalsView x:Name="RentalsView"/>
             </TabItem>
 
             <TabItem Name="TabItemEmployees"  Header="Employees">
-                <local:EmployeesView x:Name="EmployeesView"/>
+                <local:EmployeesView x:Name="EmployeesView" AutomationProperties.AutomationId="TabItemEmployees"/>
             </TabItem>
 
-            <TabItem Name="TabItemVehicles" Header="Vehicles">
+            <TabItem Name="TabItemVehicles" Header="Vehicles" AutomationProperties.AutomationId="TabItemVehicles">
                 <local:VehiclesView x:Name="VehiclesView"/>
             </TabItem>
         </TabControl>
