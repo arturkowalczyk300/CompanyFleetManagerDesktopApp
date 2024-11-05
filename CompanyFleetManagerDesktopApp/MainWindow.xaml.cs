@@ -112,7 +112,7 @@ namespace CompanyFleetManagerDesktopApp
             _rentalsViewModel.LoadRentals();
             List<Vehicle> vehicles = _vehiclesViewModel.Vehicles.ToList();
             List<Employee> employees = _employeesViewModel.Employees.ToList();
-            var window = new AddModifyRentalWindow(vehicles, employees, _rentalsViewModel.SelectedRentalInfo.Rental);
+            var window = new AddModifyRentalWindow(vehicles, employees, _rentalsViewModel.SelectedRentalInfo?.Rental);
             if (window.ShowDialog() == true)
             {
                 if (modify)

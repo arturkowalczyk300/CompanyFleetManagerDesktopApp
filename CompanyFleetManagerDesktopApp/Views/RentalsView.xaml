@@ -10,8 +10,20 @@
             <ListView Name="ListViewRentals" ItemsSource="{Binding RentalsInfo}" SelectedItem="{Binding SelectedRentalInfo}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Rented vehicle" DisplayMemberBinding="{Binding VehicleShortenedInfo}" Width="200"/>
-                        <GridViewColumn Header="Renting employee" DisplayMemberBinding="{Binding EmployeeShortenedInfo}" Width="200" />
+                        <GridViewColumn Header="Rented vehicle" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding VehicleShortenedInfo}" AutomationProperties.AutomationId="TextBlockRentedVehicle"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Renting employee" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding EmployeeShortenedInfo}" AutomationProperties.AutomationId="TextBlockRentingEmployee"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Header="RentalDate" DisplayMemberBinding="{Binding Rental.RentalDate}" Width="200" />
                         <GridViewColumn Header="PlannedReturningDate" DisplayMemberBinding="{Binding Rental.PlannedReturningDate}" Width="200" />
                         <GridViewColumn Header="FactualReturningDate" DisplayMemberBinding="{Binding Rental.FactualReturningDate}" Width="200" />

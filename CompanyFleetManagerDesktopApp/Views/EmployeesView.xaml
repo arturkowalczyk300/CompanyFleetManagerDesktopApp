@@ -9,9 +9,21 @@
         <ListView Name="ListViewEmployees" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Occupation" DisplayMemberBinding="{Binding Occupation}" Width="200"/>
+                    <GridViewColumn Header="Occupation" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Occupation}" AutomationProperties.AutomationId="TextBlockOccupation"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" Width="200"/>
-                    <GridViewColumn Header="Forename" DisplayMemberBinding="{Binding Forename}" Width="200"/>
+                    <GridViewColumn Header="Forename" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Forename}" AutomationProperties.AutomationId="TextBlockForename"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Middlename" DisplayMemberBinding="{Binding Middlename}" Width="200"/>
                     <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="200"/>
                     <GridViewColumn Header="NationalIdentityNumber" DisplayMemberBinding="{Binding NationalIdentityNumber}" Width="200"/>

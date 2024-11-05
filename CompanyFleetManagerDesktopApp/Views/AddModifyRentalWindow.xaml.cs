@@ -27,12 +27,12 @@ namespace CompanyFleetManagerDesktopApp
             InitializeComponent();
 
             ComboBoxRentedVehicle.ItemsSource = vehicles;
-            ComboBoxRentingEmployeeId.ItemsSource = employees;
+            ComboBoxRentingEmployee.ItemsSource = employees;
             if (rentalToModify != null)
             {
                 RentalData = rentalToModify;
                 ComboBoxRentedVehicle.SelectedItem = vehicles.Find(x => x.VehicleId == rentalToModify.RentedVehicleId);
-                ComboBoxRentingEmployeeId.SelectedItem = employees.Find(x => x.EmployeeId == rentalToModify.RentingEmployeeId);
+                ComboBoxRentingEmployee.SelectedItem = employees.Find(x => x.EmployeeId == rentalToModify.RentingEmployeeId);
                 DatePickerRentalDate.SelectedDate = rentalToModify.RentalDate.ToDateTime(new TimeOnly(0, 0));
                 DatePickerPlannedReturningDate.SelectedDate = rentalToModify.PlannedReturningDate;
                 DatePickerFactualReturningDate.SelectedDate = rentalToModify.FactualReturningDate;
@@ -46,7 +46,7 @@ namespace CompanyFleetManagerDesktopApp
         private void ButtonSaveRental_Click(object sender, RoutedEventArgs e)
         {
             var rentedVehicleId = (ComboBoxRentedVehicle.SelectedItem as Vehicle).VehicleId;
-            var rentingEmployeeId = (ComboBoxRentingEmployeeId.SelectedItem as Employee).EmployeeId;
+            var rentingEmployeeId = (ComboBoxRentingEmployee.SelectedItem as Employee).EmployeeId;
             var rentalDate = DatePickerRentalDate.SelectedDate;
             var plannedReturningDate = DatePickerPlannedReturningDate.SelectedDate;
             var factualReturningDate = DatePickerFactualReturningDate.SelectedDate;

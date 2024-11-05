@@ -52,8 +52,6 @@ namespace CompanyFleetManagerDesktopAppTestsE2E
             Assert.Equal("DW 321AB", licencePlate);
         }
 
-
-
         [Fact]
         public void VehiclesTest_ClickButtonAddAndFillingForm_ShouldCauseAddingNewRecord()
         {
@@ -73,9 +71,7 @@ namespace CompanyFleetManagerDesktopAppTestsE2E
 
             var addWindowHandle = windowsHandles.Where(x => x != mainWindowHandle).First();
 
-            _driver.SwitchTo().Window(_driver.WindowHandles[0]);
-
-            Thread.Sleep(200);
+            _driver.SwitchTo().Window(addWindowHandle);
 
             _driver.FindElementByAccessibilityId("TextBoxBrand").SendKeys("Fiat");
             _driver.FindElementByAccessibilityId("TextBoxModel").SendKeys("Ducato");
@@ -87,7 +83,6 @@ namespace CompanyFleetManagerDesktopAppTestsE2E
 
             _driver.FindElementByAccessibilityId("ButtonSave").Click();
 
-            Thread.Sleep(2000);
             _driver.SwitchTo().Window(mainWindowHandle);
 
             var listView = _driver.FindElementByAccessibilityId("ListViewVehicles");
