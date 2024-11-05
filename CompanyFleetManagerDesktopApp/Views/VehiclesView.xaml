@@ -6,12 +6,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView Name="ListViewVehicles" ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle}">
+        <ListView Name="ListViewVehicles" ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle}" AutomationProperties.AutomationId="ListViewVehicles">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Brand" DisplayMemberBinding="{Binding Brand}" Width="200"/>
-                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" Width="200"/>
-                    <GridViewColumn Header="LicencePlateNumber" DisplayMemberBinding="{Binding LicencePlateNumber}" Width="200"/>
+                    <GridViewColumn Header="Model" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Model}" AutomationProperties.AutomationId="Model"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="LicencePlateNumber" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding LicencePlateNumber}" AutomationProperties.AutomationId="LicencePlateNumber"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="ProductionYear" DisplayMemberBinding="{Binding ProductionYear}" Width="200"/>
                     <GridViewColumn Header="Mileage" DisplayMemberBinding="{Binding Mileage}" Width="200"/>
                     <GridViewColumn Header="VehicleInspectionValidity" DisplayMemberBinding="{Binding VehicleInspectionValidity}" Width="200"/>
