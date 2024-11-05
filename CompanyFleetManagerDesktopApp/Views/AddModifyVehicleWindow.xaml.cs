@@ -41,7 +41,6 @@ namespace CompanyFleetManagerDesktopApp
 
         private void ButtonSaveVehicle_Click(object sender, RoutedEventArgs e)
         {
-
             VehicleData.Brand = TextBoxBrand.Text;
             VehicleData.Model = TextBoxModel.Text;
             VehicleData.LicencePlateNumber = TextBoxLicencePlateNumber.Text;

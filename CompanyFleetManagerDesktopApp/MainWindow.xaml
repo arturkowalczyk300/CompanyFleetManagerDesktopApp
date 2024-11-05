@@ -9,11 +9,11 @@
     <Grid>
         <ToolBarTray>
             <ToolBar>
-                <Button Name="ButtonAdd" Content="Add"/>
+                <Button Name="ButtonAdd" Content="Add" AutomationProperties.AutomationId="ButtonAdd"/>
                 <Separator/>
-                <Button Name="ButtonModify"  Content="Modify"/>
+                <Button Name="ButtonModify"  Content="Modify"  AutomationProperties.AutomationId="ButtonModify"/>
                 <Separator/>
-                <Button Name="ButtonDelete" Content="Delete"/>
+                <Button Name="ButtonDelete" Content="Delete"  AutomationProperties.AutomationId="ButtonDelete"/>
                 <Separator/>
             </ToolBar>
         </ToolBarTray>
