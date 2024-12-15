@@ -15,7 +15,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabItem">
-                        <Border Background="{TemplateBinding Background}" BorderThickness="1" Padding="10" Margin="{TemplateBinding Margin}" CornerRadius="3">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="1" Padding="10" Margin="0,0,5,5" CornerRadius="3">
                             <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -29,7 +29,7 @@
                 </Trigger>
 
                 <Trigger Property="IsSelected" Value="False">
-                    <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+                    <Setter Property="Background" Value="{StaticResource NotSelectedTabBackgroundColor}"/>
                     <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
                 </Trigger>
             </Style.Triggers>
