@@ -34,15 +34,36 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style TargetType="ToolBar">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolBar">
+                        <Grid Background="{TemplateBinding Background}">
+                            <DockPanel>
+                                <ToolBarOverflowPanel Name="PART_ToolBarOverflowPanel" Visibility="Collapsed" DockPanel.Dock="Right" />
+                                <ItemsControl DockPanel.Dock="Left" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Items}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </DockPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid Background="{StaticResource BackgroundColor}">
-        <ToolBarTray Background="{StaticResource BackgroundColor}">
+        <ToolBarTray Background="{StaticResource BackgroundColor}" IsLocked="True">
             <ToolBar Background="{StaticResource BackgroundColor}">
-                <Button Name="ButtonAdd" Content="Add" AutomationProperties.AutomationId="ButtonAdd"/>
+                <Button Name="ButtonAdd" Foreground="{StaticResource FontColor}" Content="Add" AutomationProperties.AutomationId="ButtonAdd"/>
                 <Separator/>
-                <Button Name="ButtonModify"  Content="Modify"  AutomationProperties.AutomationId="ButtonModify"/>
+                <Button Name="ButtonModify" Foreground="{StaticResource FontColor}" Content="Modify"  AutomationProperties.AutomationId="ButtonModify"/>
                 <Separator/>
-                <Button Name="ButtonDelete" Content="Delete"  AutomationProperties.AutomationId="ButtonDelete"/>
+                <Button Name="ButtonDelete" Foreground="{StaticResource FontColor}" Content="Delete"  AutomationProperties.AutomationId="ButtonDelete"/>
                 <Separator/>
             </ToolBar>
         </ToolBarTray>
