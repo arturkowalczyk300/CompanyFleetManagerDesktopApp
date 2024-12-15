@@ -11,7 +11,8 @@
                 <ui:XamlControlsResources />
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
+            <SolidColorBrush x:Key="FontColor">#000000</SolidColorBrush>
+            <SolidColorBrush x:Key="BackgroundColor">#222222</SolidColorBrush>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

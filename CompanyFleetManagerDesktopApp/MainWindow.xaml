@@ -10,12 +10,13 @@
         ui:WindowHelper.UseModernWindowStyle="True">
     <Window.Resources>
         <Style TargetType="TabItem">
-            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+            <!--<Setter Property="Background" Value="LightBlue" /> -->
         </Style>
     </Window.Resources>
-    <Grid>
-        <ToolBarTray>
-            <ToolBar>
+    <Grid Background="LightBlue">
+        <ToolBarTray Background="LightBlue">
+            <ToolBar Background="LightBlue">
                 <Button Name="ButtonAdd" Content="Add" AutomationProperties.AutomationId="ButtonAdd"/>
                 <Separator/>
                 <Button Name="ButtonModify"  Content="Modify"  AutomationProperties.AutomationId="ButtonModify"/>
