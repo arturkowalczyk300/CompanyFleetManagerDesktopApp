@@ -11,12 +11,33 @@
     <Window.Resources>
         <Style TargetType="TabItem">
             <Setter Property="Foreground" Value="{StaticResource FontColor}" />
-            <!--<Setter Property="Background" Value="LightBlue" /> -->
+            <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="1" Padding="10" Margin="{TemplateBinding Margin}" CornerRadius="3">
+                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SelectedTabBackgroundColor}"/>
+                    <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+                </Trigger>
+
+                <Trigger Property="IsSelected" Value="False">
+                    <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+                    <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid Background="LightBlue">
-        <ToolBarTray Background="LightBlue">
-            <ToolBar Background="LightBlue">
+    <Grid Background="{StaticResource BackgroundColor}">
+        <ToolBarTray Background="{StaticResource BackgroundColor}">
+            <ToolBar Background="{StaticResource BackgroundColor}">
                 <Button Name="ButtonAdd" Content="Add" AutomationProperties.AutomationId="ButtonAdd"/>
                 <Separator/>
                 <Button Name="ButtonModify"  Content="Modify"  AutomationProperties.AutomationId="ButtonModify"/>

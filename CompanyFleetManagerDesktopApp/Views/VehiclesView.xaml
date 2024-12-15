@@ -16,6 +16,7 @@
 
         <Style TargetType="GridViewColumnHeader">
             <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+            <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
     </UserControl.Resources>
