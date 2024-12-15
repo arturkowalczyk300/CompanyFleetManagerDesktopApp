@@ -5,6 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style x:Key="DarkFontTextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid>
             <ListView Name="ListViewRentals" ItemsSource="{Binding RentalsInfo}" SelectedItem="{Binding SelectedRentalInfo}">
@@ -13,14 +27,14 @@
                         <GridViewColumn Header="Rented vehicle" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding VehicleShortenedInfo}" AutomationProperties.AutomationId="TextBlockRentedVehicle"/>
+                                    <TextBlock Text="{Binding VehicleShortenedInfo}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockRentedVehicle"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Renting employee" Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding EmployeeShortenedInfo}" AutomationProperties.AutomationId="TextBlockRentingEmployee"/>
+                                    <TextBlock Text="{Binding EmployeeShortenedInfo}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockRentingEmployee"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

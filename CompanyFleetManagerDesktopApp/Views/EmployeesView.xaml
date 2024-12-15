@@ -5,6 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style x:Key="DarkFontTextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <ListView Name="ListViewEmployees" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
             <ListView.View>
@@ -12,7 +26,7 @@
                     <GridViewColumn Header="Occupation" Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Occupation}" AutomationProperties.AutomationId="TextBlockOccupation"/>
+                                <TextBlock Text="{Binding Occupation}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockOccupation"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -20,7 +34,7 @@
                     <GridViewColumn Header="Forename" Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Forename}" AutomationProperties.AutomationId="TextBlockForename"/>
+                                <TextBlock Text="{Binding Forename}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockForename"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
