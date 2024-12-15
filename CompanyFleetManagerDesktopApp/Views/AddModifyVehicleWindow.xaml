@@ -5,31 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompanyFleetManagerDesktopApp"
         mc:Ignorable="d"
-        Title="AddModifyVehicleWindow" Height="450" Width="800">
-    <Grid>
-        <StackPanel Margin="10">
-            <TextBlock Text="Brand:" />
-            <TextBox x:Name="TextBoxBrand" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="TextBoxBrand"/>
+        Title="AddModifyVehicleWindow" Height="450" Width="800"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True">
+    <ScrollViewer>
+        <Grid>
+            <StackPanel Margin="10">
+                <TextBlock Text="Brand:" />
+                <TextBox x:Name="TextBoxBrand" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="TextBoxBrand"/>
 
-            <TextBlock Text="Model:" />
-            <TextBox x:Name="TextBoxModel" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="TextBoxModel"/>
+                <TextBlock Text="Model:" />
+                <TextBox x:Name="TextBoxModel" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="TextBoxModel"/>
 
-            <TextBlock Text="Licence Plate Number:" />
-            <TextBox x:Name="TextBoxLicencePlateNumber" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="TextBoxLicencePlateNumber"/>
+                <TextBlock Text="Licence Plate Number:" />
+                <TextBox x:Name="TextBoxLicencePlateNumber" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="TextBoxLicencePlateNumber"/>
 
-            <TextBlock Text="Production Year:" />
-            <TextBox x:Name="TextBoxProductionYear" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="TextBoxProductionYear"/>
+                <TextBlock Text="Production Year:" />
+                <TextBox x:Name="TextBoxProductionYear" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="TextBoxProductionYear"/>
 
-            <TextBlock Text="Mileage:" />
-            <TextBox x:Name="TextBoxMileage" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="TextBoxMileage"/>
+                <TextBlock Text="Mileage:" />
+                <TextBox x:Name="TextBoxMileage" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="TextBoxMileage"/>
 
-            <TextBlock Text="Vehicle Inspection Validity:" />
-            <DatePicker x:Name="DatePickerVehicleInspectionValidity" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="DatePickerVehicleInspectionValidity"/>
+                <TextBlock Text="Vehicle Inspection Validity:" />
+                <DatePicker x:Name="DatePickerVehicleInspectionValidity" Width="200" Margin="0,0,0,10"  AutomationProperties.AutomationId="DatePickerVehicleInspectionValidity"/>
 
-            <TextBlock Text="Is Damaged:" />
-            <CheckBox x:Name="CheckBoxIsDamaged" Margin="0,0,0,10" AutomationProperties.AutomationId="CheckBoxIsDamaged"/>
+                <TextBlock Text="Is Damaged:" />
+                <CheckBox x:Name="CheckBoxIsDamaged" Margin="0,0,0,10" AutomationProperties.AutomationId="CheckBoxIsDamaged"/>
 
-            <Button Content="Save" Width="100" Click="ButtonSaveVehicle_Click" AutomationProperties.AutomationId="ButtonSave"/>
-        </StackPanel>
-    </Grid>
+                <Button Content="Save" Width="100" Click="ButtonSaveVehicle_Click" AutomationProperties.AutomationId="ButtonSave"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Window>

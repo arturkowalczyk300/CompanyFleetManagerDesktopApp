@@ -5,54 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompanyFleetManagerDesktopApp"
         mc:Ignorable="d"
-        Title="AddModifyRentalWindow" Height="450" Width="800">
-    <Grid>
-        <StackPanel Margin="10">
-            <TextBlock Text="Rented vehicle:" />
-            <ComboBox x:Name="ComboBoxRentedVehicle" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="ComboBoxRentedVehicle">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1}, {2}">
-                                    <Binding Path="Brand"/>
-                                    <Binding Path="Model"/>
-                                    <Binding Path="LicencePlateNumber"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+        Title="AddModifyRentalWindow" Height="450" Width="800"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True">
+    <ScrollViewer>
+        <Grid>
+            <StackPanel Margin="10">
+                <TextBlock Text="Rented vehicle:" />
+                <ComboBox x:Name="ComboBoxRentedVehicle" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="ComboBoxRentedVehicle">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}, {2}">
+                                        <Binding Path="Brand"/>
+                                        <Binding Path="Model"/>
+                                        <Binding Path="LicencePlateNumber"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-            <TextBlock Text="Renting employee:" />
-            <ComboBox x:Name="ComboBoxRentingEmployee" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="ComboBoxRentingEmployee">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} {1} {2}, {3}">
-                                    <Binding Path="Forename"/>
-                                    <Binding Path="Middlename"/>
-                                    <Binding Path="Surname"/>
-                                    <Binding Path="Occupation"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+                <TextBlock Text="Renting employee:" />
+                <ComboBox x:Name="ComboBoxRentingEmployee" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="ComboBoxRentingEmployee">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1} {2}, {3}">
+                                        <Binding Path="Forename"/>
+                                        <Binding Path="Middlename"/>
+                                        <Binding Path="Surname"/>
+                                        <Binding Path="Occupation"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
-            <TextBlock Text="Rental Date:" />
-            <DatePicker x:Name="DatePickerRentalDate" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="DatePickerRentalDate"/>
+                <TextBlock Text="Rental Date:" />
+                <DatePicker x:Name="DatePickerRentalDate" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="DatePickerRentalDate"/>
 
-            <TextBlock Text="Planned Returning Date:" />
-            <DatePicker x:Name="DatePickerPlannedReturningDate" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="DatePickerPlannedReturningDate"/>
+                <TextBlock Text="Planned Returning Date:" />
+                <DatePicker x:Name="DatePickerPlannedReturningDate" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="DatePickerPlannedReturningDate"/>
 
-            <TextBlock Text="Factual Returning Date:" />
-            <DatePicker x:Name="DatePickerFactualReturningDate" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="DatePickerFactualReturningDate"/>
+                <TextBlock Text="Factual Returning Date:" />
+                <DatePicker x:Name="DatePickerFactualReturningDate" Width="200" Margin="0,0,0,10" AutomationProperties.AutomationId="DatePickerFactualReturningDate"/>
 
-            <Button Content="Save" Width="100" Click="ButtonSaveRental_Click" AutomationProperties.AutomationId="ButtonSave"/>
-        </StackPanel>
-    </Grid>
+                <Button Content="Save" Width="100" Click="ButtonSaveRental_Click" AutomationProperties.AutomationId="ButtonSave"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Window>

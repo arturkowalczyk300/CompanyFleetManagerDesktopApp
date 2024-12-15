@@ -5,19 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompanyFleetManagerDesktopApp.Views"
         mc:Ignorable="d"
-        Title="CompanyFleetManager" Height="850" Width="1800">
-    <Grid>
-        <ToolBarTray>
-            <ToolBar>
-                <Button Name="ButtonAdd" Content="Add" AutomationProperties.AutomationId="ButtonAdd"/>
+        Title="CompanyFleetManager" Height="850" Width="1800"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True">
+    <Window.Resources>
+        <Style TargetType="TabItem">
+            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+            <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="1" Padding="10" Margin="0,0,5,5" CornerRadius="3">
+                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SelectedTabBackgroundColor}"/>
+                    <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+                </Trigger>
+
+                <Trigger Property="IsSelected" Value="False">
+                    <Setter Property="Background" Value="{StaticResource NotSelectedTabBackgroundColor}"/>
+                    <Setter Property="Foreground" Value="{StaticResource FontColor}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ToolBar">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolBar">
+                        <Grid Background="{TemplateBinding Background}">
+                            <DockPanel>
+                                <ToolBarOverflowPanel Name="PART_ToolBarOverflowPanel" Visibility="Collapsed" DockPanel.Dock="Right" />
+                                <ItemsControl DockPanel.Dock="Left" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Items}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </DockPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="{StaticResource BackgroundColor}">
+        <ToolBarTray Background="{StaticResource BackgroundColor}" IsLocked="True">
+            <ToolBar Background="{StaticResource BackgroundColor}">
+                <Button Name="ButtonAdd" Foreground="{StaticResource FontColor}" Content="Add" AutomationProperties.AutomationId="ButtonAdd"/>
                 <Separator/>
-                <Button Name="ButtonModify"  Content="Modify"  AutomationProperties.AutomationId="ButtonModify"/>
+                <Button Name="ButtonModify" Foreground="{StaticResource FontColor}" Content="Modify"  AutomationProperties.AutomationId="ButtonModify"/>
                 <Separator/>
-                <Button Name="ButtonDelete" Content="Delete"  AutomationProperties.AutomationId="ButtonDelete"/>
+                <Button Name="ButtonDelete" Foreground="{StaticResource FontColor}" Content="Delete"  AutomationProperties.AutomationId="ButtonDelete"/>
                 <Separator/>
             </ToolBar>
         </ToolBarTray>
-        
+
         <TabControl Name="TabControl" Margin="0,30,0,0">
             <TabItem Name="TabItemRentals" Header="Rentals" AutomationProperties.AutomationId="TabItemRentals">
                 <local:RentalsView x:Name="RentalsView"/>

@@ -5,31 +5,48 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+        </Style>
+
+        <Style x:Key="DarkFontTextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+        </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+            <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer>
         <Grid>
-            <ListView Name="ListViewRentals" ItemsSource="{Binding RentalsInfo}" SelectedItem="{Binding SelectedRentalInfo}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Rented vehicle" Width="200">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding VehicleShortenedInfo}" AutomationProperties.AutomationId="TextBlockRentedVehicle"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Renting employee" Width="200">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding EmployeeShortenedInfo}" AutomationProperties.AutomationId="TextBlockRentingEmployee"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="RentalDate" DisplayMemberBinding="{Binding Rental.RentalDate}" Width="200" />
-                        <GridViewColumn Header="PlannedReturningDate" DisplayMemberBinding="{Binding Rental.PlannedReturningDate}" Width="200" />
-                        <GridViewColumn Header="FactualReturningDate" DisplayMemberBinding="{Binding Rental.FactualReturningDate}" Width="200" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <Grid>
+                <ListView Name="ListViewRentals" ItemsSource="{Binding RentalsInfo}" SelectedItem="{Binding SelectedRentalInfo}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Rented vehicle" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding VehicleShortenedInfo}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockRentedVehicle"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Renting employee" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding EmployeeShortenedInfo}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockRentingEmployee"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="RentalDate" DisplayMemberBinding="{Binding Rental.RentalDate}" Width="200" />
+                            <GridViewColumn Header="PlannedReturningDate" DisplayMemberBinding="{Binding Rental.PlannedReturningDate}" Width="200" />
+                            <GridViewColumn Header="FactualReturningDate" DisplayMemberBinding="{Binding Rental.FactualReturningDate}" Width="200" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </UserControl>
