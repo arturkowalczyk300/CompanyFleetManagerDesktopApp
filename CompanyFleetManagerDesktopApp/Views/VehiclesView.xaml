@@ -20,31 +20,33 @@
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <ListView Name="ListViewVehicles" ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle}" AutomationProperties.AutomationId="ListViewVehicles">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Brand" DisplayMemberBinding="{Binding Brand}" Width="200"/>
-                    <GridViewColumn Header="Model" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Model}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="Model"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="LicencePlateNumber" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding LicencePlateNumber}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="LicencePlateNumber"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="ProductionYear" DisplayMemberBinding="{Binding ProductionYear}" Width="200"/>
-                    <GridViewColumn Header="Mileage" DisplayMemberBinding="{Binding Mileage}" Width="200"/>
-                    <GridViewColumn Header="VehicleInspectionValidity" DisplayMemberBinding="{Binding VehicleInspectionValidity}" Width="200"/>
-                    <GridViewColumn Header="IsDamaged" DisplayMemberBinding="{Binding IsDamaged}" Width="200"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-    </Grid>
+    <ScrollViewer>
+        <Grid>
+            <ListView Name="ListViewVehicles" ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle}" AutomationProperties.AutomationId="ListViewVehicles">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Brand" DisplayMemberBinding="{Binding Brand}" Width="200"/>
+                        <GridViewColumn Header="Model" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Model}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="Model"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="LicencePlateNumber" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding LicencePlateNumber}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="LicencePlateNumber"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="ProductionYear" DisplayMemberBinding="{Binding ProductionYear}" Width="200"/>
+                        <GridViewColumn Header="Mileage" DisplayMemberBinding="{Binding Mileage}" Width="200"/>
+                        <GridViewColumn Header="VehicleInspectionValidity" DisplayMemberBinding="{Binding VehicleInspectionValidity}" Width="200"/>
+                        <GridViewColumn Header="IsDamaged" DisplayMemberBinding="{Binding IsDamaged}" Width="200"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

@@ -20,35 +20,37 @@
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <ListView Name="ListViewEmployees" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Occupation" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Occupation}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockOccupation"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" Width="200"/>
-                    <GridViewColumn Header="Forename" Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Forename}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockForename"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Middlename" DisplayMemberBinding="{Binding Middlename}" Width="200"/>
-                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="200"/>
-                    <GridViewColumn Header="NationalIdentityNumber" DisplayMemberBinding="{Binding NationalIdentityNumber}" Width="200"/>
-                    <GridViewColumn Header="WorkPhoneNumber" DisplayMemberBinding="{Binding WorkPhoneNumber}" Width="200"/>
-                    <GridViewColumn Header="PrivatePhoneNumber" DisplayMemberBinding="{Binding PrivatePhoneNumber}" Width="200"/>
-                    <GridViewColumn Header="DrivingLicenseCategories" DisplayMemberBinding="{Binding DrivingLicenseCategories}" Width="200"/>
-                    <GridViewColumn Header="DrivingLicenseValidity" DisplayMemberBinding="{Binding DrivingLicenseValidity}" Width="200"/>
-                    <GridViewColumn Header="HiredUntil" DisplayMemberBinding="{Binding HiredUntil}" Width="200"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-    </Grid>
+    <ScrollViewer>
+        <Grid>
+            <ListView Name="ListViewEmployees" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Occupation" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Occupation}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockOccupation"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Address}" Width="200"/>
+                        <GridViewColumn Header="Forename" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Forename}" Style="{StaticResource DarkFontTextBlock}" AutomationProperties.AutomationId="TextBlockForename"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Middlename" DisplayMemberBinding="{Binding Middlename}" Width="200"/>
+                        <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="200"/>
+                        <GridViewColumn Header="NationalIdentityNumber" DisplayMemberBinding="{Binding NationalIdentityNumber}" Width="200"/>
+                        <GridViewColumn Header="WorkPhoneNumber" DisplayMemberBinding="{Binding WorkPhoneNumber}" Width="200"/>
+                        <GridViewColumn Header="PrivatePhoneNumber" DisplayMemberBinding="{Binding PrivatePhoneNumber}" Width="200"/>
+                        <GridViewColumn Header="DrivingLicenseCategories" DisplayMemberBinding="{Binding DrivingLicenseCategories}" Width="200"/>
+                        <GridViewColumn Header="DrivingLicenseValidity" DisplayMemberBinding="{Binding DrivingLicenseValidity}" Width="200"/>
+                        <GridViewColumn Header="HiredUntil" DisplayMemberBinding="{Binding HiredUntil}" Width="200"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
