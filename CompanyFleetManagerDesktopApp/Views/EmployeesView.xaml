@@ -45,7 +45,7 @@
                         <GridViewColumn Header="NationalIdentityNumber" DisplayMemberBinding="{Binding NationalIdentityNumber}" Width="200"/>
                         <GridViewColumn Header="WorkPhoneNumber" DisplayMemberBinding="{Binding WorkPhoneNumber}" Width="200"/>
                         <GridViewColumn Header="PrivatePhoneNumber" DisplayMemberBinding="{Binding PrivatePhoneNumber}" Width="200"/>
-                        <GridViewColumn Header="DrivingLicenseCategories" DisplayMemberBinding="{Binding DrivingLicenseCategories}" Width="200"/>
+                        <GridViewColumn Header="DrivingLicenseCategories" DisplayMemberBinding="{Binding DrivingLicenseCategoriesText}" Width="200"/>
                         <GridViewColumn Header="DrivingLicenseValidity" DisplayMemberBinding="{Binding DrivingLicenseValidity}" Width="200"/>
                         <GridViewColumn Header="HiredUntil" DisplayMemberBinding="{Binding HiredUntil}" Width="200"/>
                     </GridView>
